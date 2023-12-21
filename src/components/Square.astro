@@ -1,0 +1,16 @@
+---
+export enum State {
+    OPEN, RESERVED, BOOKED
+}
+
+interface Props {
+  row: string,
+  col: string,
+  state?: State
+}
+
+const { row, col, state=State.OPEN } = Astro.props;
+---
+<div id={`${row}${col}`} class="square flex justify-center items-center">
+    {state}
+</div>

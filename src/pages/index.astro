@@ -1,0 +1,30 @@
+---
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+import SquaresBoard from "@components/SquaresBoard.astro";
+import ScoreBoard from "@components/ScoreBoard.astro";
+
+let isSubmitted = false;
+if (Astro.request.method === "POST") {
+  isSubmitted = true;
+}
+---
+<DefaultLayout title="Squares">
+    <h1 class="font-bold text-color-orange afc">Hello, Astro, HTMX, Tailwind</h1>    
+    <main>
+        <form hx-post="" hx-swap="innerHTML" hx-select="form">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Click Me!</button>
+            {isSubmitted && 
+            <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
+                <div class="flex">
+                    <div class="py-1">
+                        <svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+                    <div>
+                    <p class="font-bold">You clicked the button</p>
+                    </div>
+                </div>
+            </div>}
+        </form>
+        <SquaresBoard />
+        <!-- <ScoreBoard /> -->
+      </main>
+</DefaultLayout>

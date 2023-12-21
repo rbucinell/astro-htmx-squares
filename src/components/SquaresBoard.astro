@@ -1,0 +1,63 @@
+---
+import '../styles/squares.css';
+import Square from "@components/Square.astro";
+import State from "@components/Square.astro";
+
+const ROWS = 'ABCDEFGHIJ'.split('');
+const COLS = [...Array(10).keys()];
+const Qs = [1,2,3,4];
+---
+<div class="board-grid center"> 
+
+  <div id="logo">
+    <img class="max-h-full max-w-full justify-center" src="img/nfl-shield.svg">
+    <span id="squaresleft" class="text-sm" >X squares left.</span>
+  </div>
+
+  <!--Corners -->
+  {Qs.map( q => <div class:list={["qFont",`q${q}`,"header","cornerheader"]} id={`chq${q}`}>Q{q}</div> )}
+  
+  <!-- NFC Headers -->
+  <div id="champNFC"><img class="mw-100 mh-100" src="img/nfc-logo.svg"></div>
+  {Qs.map( q => { 
+    return <div class:list={["header",`q${q}`]} id={`nfchq${q}`}>
+      <table>
+        <tbody>
+          <tr id={`nfchq${q}-numbers`}>{COLS.map( c=> <td id={`nfc-h-q${q}-${c}`}>#</td>)}</tr>
+        </tbody>
+      </table>
+    </div>
+  })}
+  
+  <!-- AFC Headers -->
+  <div class="header" id="champAFC">
+    <div id="afcBanner"><img src="img/afc-logo.svg"></div>
+  </div>
+  {Qs.map( q => { 
+    return <div class:list={["column", "header",`q${q}`]} id={`afchq${q}`}>
+      <table>
+        <tbody>
+          {ROWS.map( r=><tr><td id={`afc-h-q${q}-${r}`}>#</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+  })}
+
+  <!--Main Grid -->
+  <div id="gridsquares">
+    <table>
+      <tbody>
+        {ROWS.map(row=>{
+          return <tr>
+            {COLS.map( col =>{
+              return <td class="p-0 border border-gray-800 bg-slate-100 font-bold ">
+                <Square row={row} col={col} state={State.OPEN} />
+              </td>
+            })}
+          </tr>
+        })}
+      </tbody>
+    </table>
+  </div>
+
+</div>
