@@ -1,63 +1,9 @@
 ---
-
+import ScoreCard from "./ScoreCard.astro";
 ---
-<div class="container">
-    <div class="row">
-      <div class="col">
-        <div class="card" id="q1scoreCard">
-          <div class="card-body">
-            <div class="card-title lead d-flex justify-content-between"><span>End of Q1</span><span class="qpayout badge" id="q1payout">$ --</span></div>
-            <div class="card-text">
-              <ul class="list-group list-group-horizontal w-100">
-                <li class="list-group-item w-50 afcChampions scorecard" id="q1afc">--</li>
-                <li class="list-group-item w-50 nfcChampions scorecard" id="q1nfc">--</li>
-              </ul>
-            </div>
-          </div>
-          <div class="card-footer invisible"></div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card" id="q2scoreCard">
-          <div class="card-body">
-            <div class="card-title lead d-flex justify-content-between"><span>Halftime</span><span class="badge qpayout" id="q2payout">$ --</span></div>
-            <div class="card-text">
-              <ul class="list-group list-group-horizontal w-100">
-                <li class="list-group-item w-50 afcChampions scorecard" id="q2afc">--</li>
-                <li class="list-group-item w-50 nfcChampions scorecard" id="q2nfc">--</li>
-              </ul>
-            </div>
-          </div>
-          <div class="card-footer invisible"></div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card" id="q3scoreCard">
-          <div class="card-body">
-            <div class="card-title lead d-flex justify-content-between"><span>End of Q3</span><span class="badge qpayout" id="q3payout">$ --</span></div>
-            <div class="card-text">
-              <ul class="list-group list-group-horizontal w-100">
-                <li class="list-group-item w-50 afcChampions scorecard" id="q3afc">--</li>
-                <li class="list-group-item w-50 nfcChampions scorecard" id="q3nfc">--</li>
-              </ul>
-            </div>
-          </div>
-          <div class="card-footer invisible"></div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card" id="q4scoreCard">
-          <div class="card-body">
-            <div class="card-title lead d-flex justify-content-between"><span>Final</span><span class="badge qpayout" id="q4payout">$ --</span></div>
-            <div class="card-text">
-              <ul class="list-group list-group-horizontal w-100">
-                <li class="list-group-item w-50 afcChampions scorecard" id="q4afc">--</li>
-                <li class="list-group-item w-50 nfcChampions scorecard" id="q4nfc">--</li>
-              </ul>
-            </div>
-          </div>
-          <div class="card-footer invisible"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="container flex flex-row flex-auto max-w-[900px] justify-items-center">
+  <ScoreCard q={1} payout={100} afc={10} nfc={17} />
+  <ScoreCard q={2} payout={100} afc={10} nfc={17} />
+  <ScoreCard q={3} payout={100} afc={10} nfc={17} />
+  <ScoreCard q={4} payout={100} afc={10} nfc={17} display="Final" />
+</div>

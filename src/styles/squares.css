@@ -163,11 +163,6 @@
       height: 50px;
   }
   
-  .qpayout {
-      background-color: var(--nfl-blue);
-      color: white;
-  }
-  
   @media (max-width: 575.98px) { 
       #logo{
           grid-area: 1 / 1 / 2 / 6;

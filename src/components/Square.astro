@@ -5,12 +5,12 @@ export enum State {
 
 interface Props {
   row: string,
-  col: string,
+  col: number,
   state?: State
 }
 
 const { row, col, state=State.OPEN } = Astro.props;
 ---
-<div id={`${row}${col}`} class="square flex justify-center items-center">
-    {state}
+<div id={`${row}${col}`} class:list={["square flex justify-center items-center", {"hover:bg-gray-200" : state === State.OPEN} ]}>
+    {row}{col}<span class="text-sm text-gray-300">{state}</span>
 </div>

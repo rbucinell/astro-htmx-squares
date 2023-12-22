@@ -1,0 +1,22 @@
+---
+interface Props {
+  q: number,
+  payout: number,
+  afc: number,
+  nfc: number,
+  display?: string
+}
+ const { q, payout, afc, nfc, display } = Astro.props;
+---
+<div class="border w-full bg-slate-100 border-slate-500 my-1 mx-3 p-1 rounded-md" id={`q${q}scoreCard`}>
+    <div class="flex-col">
+        <div class="flex flex-row justify-between">
+            <span class="font-bold text-lg">End of { display || `Q${q}`}</span>
+            <span class="font-bold bg-green-700 text-white w-1/4" id={`q${q}payout`}>${payout || '--'}</span>
+        </div>
+        <div class="flex flex-row justify-around">
+            <span class="afcChampions scorecard w-full align-middle" id={`q${q}afc`}>{afc || '--'}</span>
+            <span class="nfcChampions scorecard w-full align-middle" id={`q${q}nfc`}>{nfc || '--'}</span>
+        </div>
+    </div>
+</div>
