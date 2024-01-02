@@ -12,7 +12,7 @@ interface Props {
     <div class="flex-col">
         <div class="flex flex-row justify-between">
             <span class="font-bold text-lg">End of { display || `Q${q}`}</span>
-            <span class="font-bold bg-green-700 text-white w-1/4" id={`q${q}payout`}>${payout || '--'}</span>
+            <span class="font-bold bg-green-700 text-white w-1/4 p-1" id={`q${q}payout`}>${payout || '--'}</span>
         </div>
         <div class="flex flex-row justify-around">
             <span class="afcChampions scorecard w-full align-middle" id={`q${q}afc`}>{afc || '--'}</span>
