@@ -14,7 +14,13 @@ export async function findOne( collection, options = null ) {
 
 export async function db(action, collection, options ) {
     const uri = `${baseUri}/action/${action}`;
-    return await fetch( uri, {
+    const body = {
+        "dataSource": import.meta.env.MONGO_SOURCE,
+        "database": import.meta.env.MONGO_DB,
+        "collection": collection,
+        ...options
+    };
+    const response = await fetch( uri, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -22,11 +28,7 @@ export async function db(action, collection, options ) {
             'Accept': 'application/json',
             'api-key': import.meta.env.MONGO_DATA_API_KEY_SECRET
         },
-        body: JSON.stringify({
-            "dataSource": import.meta.env.MONGO_SOURCE,
-            "database": import.meta.env.MONGO_DB,
-            "collection": collection,
-            ...options
-        })
+        body: JSON.stringify(body)
     });
+    return response;
 }

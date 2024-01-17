@@ -1,16 +1,25 @@
+import type { APIContext } from "astro";
 import {db, find, findOne} from "src/lib/mongodb";
+import { successJSON, errorResponse } from '../../../lib/response';
 const collection = 'scores'
-const demo = {    
-    _id: "65a68fbe16f7e23c4412a16e",
-    year:2024,
-    quarter:1,
-    nfc:3,
-    afc:10
+
+export async function GET({ url, request }: APIContext){
+    const year = url.searchParams.get('year') || (new Date().getFullYear());
+    const response = await db('find', collection );
+    //const response = await db('find', collection, { limit: 50, filter: {year} } );
+    const data = await response.json();
+    if( data.length === 0 ){
+        return error404();
+    }
+    return successJSON( data );
 }
 
-export async function GET() {
-    const response = await db('find', collection, { limit: 2} );
-    const data = await response.json();
-    console.log( data );
-    return new Response( JSON.stringify(data) );
+
+export async function POST({ request }: APIContext){
+    const body = await request.json();
+    if( !body.year) return errorResponse(400,"Missing required parameter 'year'");
+    if( !body.quarter) return errorResponse(400,"Missing required parameter 'quarter'");
+    if( !body.nfc) return errorResponse(400,"Missing required parameter 'nfc'");
+    if( !body.afc) return errorResponse(400,"Missing required parameter 'afc'");
+    return new Response('TODO: '+JSON.stringify(body));
 }
