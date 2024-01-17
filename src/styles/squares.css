@@ -22,8 +22,6 @@
   }
   
   .afcChampions {
-      vertical-align:middle;
-      text-align:center;
       background-color: var(--afc-primary);
       border: 1px solid var(--afc-primary);
       /* background-image: url(https://static.www.nfl.com/t_q-best/league/api/clubs/logos/CIN); */
