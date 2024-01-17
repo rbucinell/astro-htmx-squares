@@ -1,5 +1,5 @@
-import {database} from "src/lib/mongodb";
-
+import {db, find, findOne} from "src/lib/mongodb";
+const collection = 'scores'
 const demo = {    
     _id: "65a68fbe16f7e23c4412a16e",
     year:2024,
@@ -8,20 +8,9 @@ const demo = {
     afc:10
 }
 
-
 export async function GET() {
-    const mongo = await database();
-    const scores = mongo.collection('scores');
-    
-    await mongo.command({ping: 1});
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-
-    return new Response(
-        JSON.stringify(demo), {
-            status: 200,
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }
-    );
+    const response = await db('find', collection, { limit: 2} );
+    const data = await response.json();
+    console.log( data );
+    return new Response( JSON.stringify(data) );
 }

@@ -1,25 +1,32 @@
-import { MongoClient } from 'mongodb';
 
-if (!import.meta.env.MONGODB_URI) {
-  throw new Error('Invalid environment variable: "MONGODB_URI"');
+const appId = `data-jzoii`;
+const baseUri = `https://us-east-1.aws.data.mongodb-api.com/app/${appId}/endpoint/data/v1`;
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+
+export async function find( collection, options = null) {
+    const response = await db('find', collection, options);
+    return await response.json();
+}
+export async function findOne( collection, options = null ) {
+    const response = await db('findOne', collection, options );
+    return await response.json();
 }
 
-const uri = import.meta.env.MONGODB_URI;
-const options = {};
-let cache;
-
-const connect = async () =>{
-    const mongo = await new MongoClient(uri, options).connect();
-    return mongo.db('squares');
-}
-
-export const database = async () => {
-    if( import.meta.env.NODE_ENV === 'development' ){
-        if( !global._mongoConnection) {
-            global._mongoConnection = await connect();
-            cache = global._mongoConnection;
-        }
-        return cache;
-    }
-    return await connect();
+export async function db(action, collection, options ) {
+    const uri = `${baseUri}/action/${action}`;
+    return await fetch( uri, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Request-Headers': '*',
+            'Accept': 'application/json',
+            'api-key': import.meta.env.MONGO_DATA_API_KEY_SECRET
+        },
+        body: JSON.stringify({
+            "dataSource": import.meta.env.MONGO_SOURCE,
+            "database": import.meta.env.MONGO_DB,
+            "collection": collection,
+            ...options
+        })
+    });
 }
