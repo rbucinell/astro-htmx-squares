@@ -1,10 +1,13 @@
-export async function GET() {
-    return new Response(
-        JSON.stringify({ msg: "Hello World" }), {
-            status: 200,
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }
-    );
+import type { APIContext } from "astro";
+import {db, find, findOne} from "src/lib/mongodb";
+import { successJSON, errorResponse, error404 } from '../../../lib/response';
+const collection = 'picks'
+
+export async function GET({ url, request }: APIContext){
+    const response = await db('find', collection );
+    const data = await response.json();
+    if( data.length === 0 ){
+        return error404();
+    }
+    return successJSON( data );
 }
