@@ -1,12 +1,24 @@
 ---
 import '../styles/squares.css';
 import Square from "@components/Square.astro";
-import {State} from "@components/Square.astro";
+import {SquareState} from "@components/Square.astro";
+
+const { picks } = Astro.props;
 
 const ROWS = 'ABCDEFGHIJ'.split('');
 const COLS = [...Array(10).keys()];
 const Qs = [1,2,3,4];
+
 ---
+<script is:inline>
+  let clickedSquares = [];
+</script>
+
+<div class="border border-zinc-700 p-2 max-w-[900px] flex flex-row">
+  <button type="button" class="h-8 px-3 inline-block rounded-full border-2 border-red-600">Purchase</button>
+  <div class="px-1 font-semibold">Selected&nbsp;Squares:&nbsp;</div>
+  <div class="" id="clickedList"></div>
+</div>
 <div class="board-grid center"> 
 
   <div id="logo">
@@ -50,14 +62,17 @@ const Qs = [1,2,3,4];
         {ROWS.map(row=>{
           return <tr>
             {COLS.map( col =>{
-              return <td class="p-0 border border-gray-800 bg-slate-100 font-bold ">
-                <Square row={row} col={col} state={State.OPEN} />
-              </td>
+
+              let state = SquareState.OPEN;
+              let pick = picks?.find( doc => doc.pick === `${row}${col}`);
+              if( pick ) {
+                state = pick.paid ? SquareState.BOOKED : SquareState.RESERVED;
+              }
+              return <Square row={row} col={col} state={state} pick={pick} />
             })}
           </tr>
         })}
       </tbody>
     </table>
   </div>
-
 </div>
