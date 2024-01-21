@@ -1,16 +1,77 @@
 ---
-export enum State {
-    OPEN, RESERVED, BOOKED
+export enum SquareState {
+    OPEN, SELECTED, RESERVED, BOOKED
 }
+const stateClasses = [
+    /*OPEN*/    ['bg-slate-100','hover:bg-gray-300','cursor-pointer'],
+    /*SELECTED*/['bg-blue-400','cursor-pointer'],
+    /*RESERVED*/['bg-red-400'],
+    /*BOOKED*/  ['bg-green-400'],
+  ]
 
 interface Props {
   row: string,
   col: number,
-  state?: State
+  state?: SquareState,
+  pick?: any
 }
 
-const { row, col, state=State.OPEN } = Astro.props;
+const { row, col, state=SquareState.OPEN, pick } = Astro.props;
 ---
-<div id={`${row}${col}`} class:list={["square flex justify-center items-center", {"hover:bg-gray-200" : state === State.OPEN} ]}>
-    {row}{col}<span class="text-sm text-gray-300">{state}</span>
-</div>
+<td id={`${row}${col}`} class:list={["square overflow-auto p-0 w-14 h-14 border border-gray-500 font-bold aspect-square h-50"].concat(...stateClasses[state])}>
+  { (state === SquareState.OPEN || state === SquareState.SELECTED) 
+    ? <span>{row}{col}</span>
+    : <p class="overflow-hidden w-14	overflow-ellipsis font-light">{`${pick.display}`.repeat(3)}</p>
+  }
+</td>
+
+<script define:vars={{ stateClasses, SquareState, row, col, state }}>
+  let square = document.querySelector(`#${row}${col}`);  
+  if( state !== SquareState.RESERVED && state !== SquareState.BOOKED)
+    square.addEventListener('click', selectPick);
+
+  function selectPick() {
+    //ensure the array exists
+    if( !clickedSquares ) clickedSquares = [];
+
+    let index = clickedSquares.indexOf( square );
+    // If not in the array, add it; otherwise, remove it
+    if (index === -1) {
+      square.setAttribute('state', SquareState.SELECTED);
+      clickedSquares.push(square);
+    } else {
+      square.setAttribute('state', SquareState.OPEN);
+      clickedSquares.splice(index, 1);
+    }
+    updateSquareVisuals( square );
+    updateList();
+  }
+  
+  function updateList() {
+    let listDiv = document.querySelector('#clickedList');
+    let html = clickedSquares.map( cs => `<span>${cs.id}</span>`).join(' ');
+    listDiv.innerHTML = html;
+  }
+
+  function updateSquareVisuals( square ){
+    let state = parseInt(square.getAttribute('state'));
+
+    stateClasses.forEach( classStateArr => classStateArr.forEach( classState => square.classList.remove(classState) ));
+    stateClasses[state].forEach( st => square.classList.add( st ));
+
+
+
+    switch( state ){
+      case SquareState.OPEN:
+        break;
+      case SquareState.SELECTED:
+        square.classList.add('bg-blue-400')
+        break;
+      case SquareState.RESERVED:
+        break;
+      case SquareState.BOOKED:
+        break;
+    }
+  }
+  
+</script>

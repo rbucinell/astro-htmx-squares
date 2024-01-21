@@ -12,7 +12,7 @@ const { purchased, price } = Astro.props;
 const scores = (await (await GetScores(Astro)).json()).documents;
 let payouts = [0.1, 0.2, 0.3, 0.4].map( (payout:number) => (payout * ( purchased * price )) );
 ---
-<div class="container flex flex-row flex-auto max-w-[900px] justify-items-center">
+<div class="container min-w-[500px] flex flex-row flex-auto max-w-[900px] justify-items-center">
   { payouts.map( (payout,i) =>  {
     let score = scores.find( s => s.year === new Date().getFullYear() && s.quarter === i+1)
     return <ScoreCard q={i+1} payout={ payout } afc={score?.afc} nfc={score?.nfc} /> 

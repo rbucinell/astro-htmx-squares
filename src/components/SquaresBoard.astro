@@ -14,26 +14,28 @@ const Qs = [1,2,3,4];
   let clickedSquares = [];
 </script>
 
-<div class="border border-zinc-700 p-2 max-w-[900px] flex flex-row">
-  <button type="button" class="h-8 px-3 inline-block rounded-full border-2 border-red-600">Purchase</button>
+<div class="border border-zinc-700 p-2 min-w-[500px] max-w-[900px] flex flex-row">
+  <button id='submitSquaresButton' type="button" class=" h-8 px-3 inline-block rounded-full text-nfl-white bg-nfl-blue hover:bg-blue-900 active:bg-blue-700">Purchase</button>
   <div class="px-1 font-semibold">Selected&nbsp;Squares:&nbsp;</div>
   <div class="" id="clickedList"></div>
 </div>
-<div class="board-grid center"> 
+<div class="board-grid center text-center border border-solid border-gray-500"> 
 
-  <div id="logo">
-    <img class="max-h-full max-w-full justify-center" src="img/nfl-shield.svg">
-    <span id="squaresleft" class="text-sm" >X squares left.</span>
+  <div id="logo" class="bg-nfl-white border-0">
+    <img class="h-full max-h-full max-w-full justify-center" src="img/nfl-shield.svg">
+    
   </div>
 
   <!--Corners -->
-  {Qs.map( q => <div class:list={["qFont",`q${q}`,"header","cornerheader"]} id={`chq${q}`}>Q{q}</div> )}
+  {Qs.map( q => <div class:list={["qFont",`q${q}`,"text-lg font-bold leading-normal text-left py-1"]} id={`chq${q}`}>Q{q}</div> )}
   
   <!-- NFC Headers -->
-  <div id="champNFC"><img class="mw-100 mh-100" src="img/nfc-logo.svg"></div>
+  <div id="champNFC" class="bg-nfc-primary bg-center bg-no-repeat bg-cover border border-solid border-gray-500">
+    <img class="mw-100 mh-100 h-full" src="img/nfc-logo.svg">
+  </div>
   {Qs.map( q => { 
-    return <div class:list={["header",`q${q}`]} id={`nfchq${q}`}>
-      <table>
+    return <div class:list={["text-lg font-bold leading-normal",`q${q}`]} id={`nfchq${q}`}>
+      <table class="size-full border-l border-solid border-gray-500">
         <tbody>
           <tr id={`nfchq${q}-numbers`}>{COLS.map( c=> <td id={`nfc-h-q${q}-${c}`}>#</td>)}</tr>
         </tbody>
@@ -42,12 +44,14 @@ const Qs = [1,2,3,4];
   })}
   
   <!-- AFC Headers -->
-  <div class="header" id="champAFC">
-    <div id="afcBanner"><img src="img/afc-logo.svg"></div>
+  <div id="champAFC" class="text-lg font-bold leading-normal bg-afc-primary bg-center bg-no-repeat bg-cover flex flex-col justify-center border border-solid border-gray-500" >
+    <div id="afcBanner" class="">
+      <img src="img/afc-logo.svg" class="w-full">
+    </div>
   </div>
   {Qs.map( q => { 
     return <div class:list={["column", "header",`q${q}`]} id={`afchq${q}`}>
-      <table>
+      <table class="size-full border-t border-solid border-gray-500">
         <tbody>
           {ROWS.map( r=><tr><td id={`afc-h-q${q}-${r}`}>#</td></tr>)}
         </tbody>
@@ -57,7 +61,7 @@ const Qs = [1,2,3,4];
 
   <!--Main Grid -->
   <div id="gridsquares">
-    <table>
+    <table class="size-full">
       <tbody>
         {ROWS.map(row=>{
           return <tr>

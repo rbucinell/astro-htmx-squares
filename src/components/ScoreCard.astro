@@ -3,20 +3,22 @@ interface Props {
   q: number,
   payout: number,
   afc: number,
-  nfc: number,
-  display?: string
+  nfc: number
 }
- const { q, payout, afc, nfc, display } = Astro.props;
+const { q, payout, afc, nfc } = Astro.props;
 ---
-<div class="border w-full bg-slate-100 border-slate-500 my-1 mx-3 p-1 rounded-md" id={`q${q}scoreCard`}>
+<div class="border w-full bg-slate-100 border-slate-500 my-1 mx-2 p-1 rounded-md" id={`q${q}scoreCard`}>
     <div class="flex-col">
         <div class="flex flex-row justify-between">
-            <span class="font-bold text-lg">End of { display || `Q${q}`}</span>
-            <span class="font-bold bg-green-700 text-white w-1/4 p-1 flex justify-center" id={`q${q}payout`}>${payout || '--'}</span>
+            <div class="font-bold text-lg">End of { q === 4 ? 'Final' : `Q${q}`}</div>
+            <div class="font-bold bg-green-700 text-white w-1/4 p-1 flex justify-center" id={`q${q}payout`}>${payout || '--'}</div>
         </div>
         <div class="flex flex-row justify-around">
-            <span class="afcChampions scorecard w-full flex justify-center line-h" id={`q${q}afc`}>{afc || '--'}</span>
-            <span class="nfcChampions scorecard w-full flex justify-center line-h" id={`q${q}nfc`}>{nfc || '--'}</span>
+            <div class="bg-afc-primary border-afc-primary text-nfl-white font-bold h-12 w-full flex justify-center items-center line-h" id={`q${q}afc`}>{afc || '--'}</div>
+            <div class="bg-nfc-primary border-nfc-primary text-nfl-white font-bold h-12 w-full flex justify-center items-center line-h" id={`q${q}nfc`}>{nfc || '--'}</div>
+        </div>
+        <div class="w-full items-center">
+            winner
         </div>
     </div>
 </div>
