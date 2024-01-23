@@ -8,6 +8,19 @@
     min-width:500px;
 }
 
+@media (max-width:640px) {
+    .board-grid {
+        grid-template-columns: 20px repeat(4,1.5em) repeat(10, 1fr);
+        grid-template-rows: 20px repeat(4,1.5em) repeat(10, 1fr);
+    } 
+}
+@media (max-width:475px) {
+    .board-grid {
+        grid-template-columns: 0px repeat(4,1.5em) repeat(10, 1fr);
+        grid-template-rows: 0px repeat(4,1.5em) repeat(10, 1fr);
+    } 
+}
+
 #champNFC { grid-area: 1 / 6 / 2 / 16; }
 #nfchq1   { grid-area: 2 / 6 / 3 / 16; }
 #nfchq2   { grid-area: 3 / 6 / 4 / 16; }

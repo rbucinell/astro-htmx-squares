@@ -1,4 +1,6 @@
 ---
+import Helmet from '../../public/img/helmet.svg?raw'
+
 export enum SquareState {
     OPEN, SELECTED, RESERVED, BOOKED
 }
@@ -21,7 +23,7 @@ const { row, col, state=SquareState.OPEN, pick } = Astro.props;
 <td id={`${row}${col}`} class:list={["square overflow-auto p-0 w-14 h-14 border border-gray-500 font-bold aspect-square h-50 select-none"].concat(...stateClasses[state])}>
   { (state === SquareState.OPEN || state === SquareState.SELECTED) 
     ? <span>{row}{col}</span>
-    : <p class="overflow-clip w-14 px-1 font-light text-sm">{`${pick.display}`.repeat(3)}</p>
+    : <div><Fragment set:html={Helmet}/><p class="overflow-clip w-14 max-sm:w-8 px-1 text-xs">{`${pick.display}`.repeat(3)}</p></div>
   }
 </td>
 

@@ -30,7 +30,7 @@ const Qs = [1,2,3,4];
     return <div class:list={["text-lg font-bold leading-normal",`q${q}`]} id={`nfchq${q}`}>
       <table class="size-full border-l border-solid border-gray-500">
         <tbody>
-          <tr id={`nfchq${q}-numbers`}>{COLS.map( c=> <td id={`nfc-h-q${q}-${c}`}>#</td>)}</tr>
+          <tr id={`nfchq${q}-numbers`}>{COLS.map( c=> <td id={`nfc-h-q${q}-${c}`} class="max-sm:text-sm">#</td>)}</tr>
         </tbody>
       </table>
     </div>
@@ -46,7 +46,7 @@ const Qs = [1,2,3,4];
     return <div class:list={["column", "header",`q${q}`]} id={`afchq${q}`}>
       <table class="size-full border-t border-solid border-gray-500">
         <tbody>
-          {ROWS.map( r=><tr><td id={`afc-h-q${q}-${r}`}>#</td></tr>)}
+          {ROWS.map( r=><tr><td id={`afc-h-q${q}-${r}`} class="max-sm:text-sm" >#</td></tr>)}
         </tbody>
       </table>
     </div>
