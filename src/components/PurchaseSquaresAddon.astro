@@ -1,0 +1,26 @@
+---
+import PurchaseModal from "./PurchaseModal.astro";
+
+const { price } = Astro.props;
+---
+<script is:inline >
+    let clickedSquares = [];
+    
+    function showDialog(){
+        document.querySelector('#squareCount').innerHTML = clickedSquares.length;
+        document.querySelector('#multisquares').innerHTML = (clickedSquares.length > 1 ? 's' : '') + ` ($${getTotal()})`;
+        let dialog = document.querySelector('#dialog');
+        dialog.classList.remove('hidden');
+        dialog.classList.add('flex');
+        setTimeout(()=>{ dialog.classList.add('opacity-100'); }, 20)
+    }
+</script>
+  
+<div class="border border-zinc-700 p-2 min-h-12 min-w-[500px] max-w-[900px] text-zinc-800 flex ">
+    <div class="px-1 font-semibold">Selected&nbsp;Squares:&nbsp;</div>
+    <div class="px-1 grow" id="clickedList"></div>
+    <button onclick="showDialog()" id="submitSquaresButton" class="hidden h-8 bg-transparent font-semibold px-4 border border-nfl-blue rounded-full hover:bg-blue-300 active:bg-blue-400" type="button">
+        <span>Purchase</span>
+    </button>
+</div>
+<PurchaseModal price={price} />

@@ -3,10 +3,10 @@ export enum SquareState {
     OPEN, SELECTED, RESERVED, BOOKED
 }
 const stateClasses = [
-    /*OPEN*/    ['bg-slate-100','hover:bg-gray-300','cursor-pointer'],
+    /*OPEN*/    ['bg-slate-100','hover:bg-blue-200','cursor-pointer'],
     /*SELECTED*/['bg-blue-400','cursor-pointer'],
-    /*RESERVED*/['bg-red-400'],
-    /*BOOKED*/  ['bg-green-400'],
+    /*RESERVED*/['bg-red-400','text-red-900'],
+    /*BOOKED*/  ['bg-slate-200'],
   ]
 
 interface Props {
@@ -18,15 +18,15 @@ interface Props {
 
 const { row, col, state=SquareState.OPEN, pick } = Astro.props;
 ---
-<td id={`${row}${col}`} class:list={["square overflow-auto p-0 w-14 h-14 border border-gray-500 font-bold aspect-square h-50"].concat(...stateClasses[state])}>
+<td id={`${row}${col}`} class:list={["square overflow-auto p-0 w-14 h-14 border border-gray-500 font-bold aspect-square h-50 select-none"].concat(...stateClasses[state])}>
   { (state === SquareState.OPEN || state === SquareState.SELECTED) 
     ? <span>{row}{col}</span>
-    : <p class="overflow-hidden w-14	overflow-ellipsis font-light">{`${pick.display}`.repeat(3)}</p>
+    : <p class="overflow-clip w-14 px-1 font-light text-sm">{`${pick.display}`.repeat(3)}</p>
   }
 </td>
 
 <script define:vars={{ stateClasses, SquareState, row, col, state }}>
-  let square = document.querySelector(`#${row}${col}`);  
+  let square = document.querySelector(`#${row}${col}`);
   if( state !== SquareState.RESERVED && state !== SquareState.BOOKED)
     square.addEventListener('click', selectPick);
 
@@ -43,11 +43,17 @@ const { row, col, state=SquareState.OPEN, pick } = Astro.props;
       square.setAttribute('state', SquareState.OPEN);
       clickedSquares.splice(index, 1);
     }
+    
     updateSquareVisuals( square );
     updateList();
   }
   
   function updateList() {
+    let submitBtn = document.querySelector('#submitSquaresButton');
+    if( clickedSquares.length === 0) 
+      submitBtn.classList.add('hidden');
+    else
+      submitBtn.classList.remove('hidden');
     let listDiv = document.querySelector('#clickedList');
     let html = clickedSquares.map( cs => `<span>${cs.id}</span>`).join(' ');
     listDiv.innerHTML = html;
@@ -58,8 +64,6 @@ const { row, col, state=SquareState.OPEN, pick } = Astro.props;
 
     stateClasses.forEach( classStateArr => classStateArr.forEach( classState => square.classList.remove(classState) ));
     stateClasses[state].forEach( st => square.classList.add( st ));
-
-
 
     switch( state ){
       case SquareState.OPEN:

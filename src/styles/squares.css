@@ -1,75 +1,73 @@
+.board-grid {
+    display: grid;
+    grid-template-columns: 60px repeat(4,2em) repeat(10, 1fr);
+    grid-template-rows: 60px repeat(4,2em) repeat(10, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    max-width:900px;
+    min-width:500px;
+}
 
-  .nfcChampions {
-      /* background-image: url(https://static.www.nfl.com/t_q-best/league/api/clubs/logos/LA); */
-  }
-  
-  .afcChampions {
-      /* background-image: url(https://static.www.nfl.com/t_q-best/league/api/clubs/logos/CIN); */
-  }
-      
-  .board-grid {
-      display: grid;
-      grid-template-columns: 60px repeat(4,2em) repeat(10, 1fr);
-      grid-template-rows: 60px repeat(4,2em) repeat(10, 1fr);
-      grid-column-gap: 0px;
-      grid-row-gap: 0px;
-      max-width:900px;
-      min-width:500px;
-  }
-  
-  #champNFC { grid-area: 1 / 6 / 2 / 16; }
-  #nfchq1   { grid-area: 2 / 6 / 3 / 16; }
-  #nfchq2   { grid-area: 3 / 6 / 4 / 16; }
-  #nfchq3   { grid-area: 4 / 6 / 5 / 16; }
-  #nfchq4   { grid-area: 5 / 6 / 6 / 16; }
-  #champAFC { grid-area: 6 / 1 / 16 / 2; }
-  #afchq1   { grid-area: 6 / 2 / 16 / 3; }
-  #afchq2   { grid-area: 6 / 3 / 16 / 4; }
-  #afchq3   { grid-area: 6 / 4 / 16 / 5; }
-  #afchq4   { grid-area: 6 / 5 / 16 / 6; }
-  #gridsquares { grid-area: 6 / 6 / 16 / 16; }
-  #logo { grid-area: 1 / 1 / 2 / 2; }
-  #chq1 { grid-area: 2 / 2 / 6 / 6; }
-  #chq2 { grid-area: 3 / 3 / 6 / 6; }
-  #chq3 { grid-area: 4 / 4 / 6 / 6; }
-  #chq4 { grid-area: 5 / 5 / 6 / 6; }
-  
-  #champNFC {
-      /* background-image: url(https://static.www.nfl.com/image/private/f_auto/league/eo223qd5mlxrna3bbdiv); */
-  }
-  
-  #champAFC {
-      /* background-image: url(https://res.cloudinary.com/nflleague/image/private/f_auto/league/maacoshfmktzddy1ob56); */
-  }
-  .q1 {
-      background-color: #444444 !important;
-      text-shadow: 1px 1px 2px #AAAAAA;
-  }
-  .q1win {
-      border: 2px double orange; 
-  }
-  .q2 {
-      background-color: #666666 !important;
-      text-shadow: 1px 1px 2px #AAAAAA;
-  }
-  .q2win { 
-      border: 2px double red; 
-  }
-  
-  .q3 {
-      background-color: #888888 !important;
-      text-shadow: 1px 1px 2px #AAAAAA;
-  }
-  .q3win { 
-      border: 2px double blue; 
-  }
-  
-  .q4 {
-      background-color: #AAAAAA !important;
-      text-shadow: 1px 1px 2px white;
-  }
-  .q4win { 
-      border: 2px double green; 
-  }
-  
-  
+#champNFC { grid-area: 1 / 6 / 2 / 16; }
+#nfchq1   { grid-area: 2 / 6 / 3 / 16; }
+#nfchq2   { grid-area: 3 / 6 / 4 / 16; }
+#nfchq3   { grid-area: 4 / 6 / 5 / 16; }
+#nfchq4   { grid-area: 5 / 6 / 6 / 16; }
+#champAFC { grid-area: 6 / 1 / 16 / 2; }
+#afchq1   { grid-area: 6 / 2 / 16 / 3; }
+#afchq2   { grid-area: 6 / 3 / 16 / 4; }
+#afchq3   { grid-area: 6 / 4 / 16 / 5; }
+#afchq4   { grid-area: 6 / 5 / 16 / 6; }
+#gridsquares { grid-area: 6 / 6 / 16 / 16; }
+#logo { grid-area: 1 / 1 / 2 / 2; }
+#chq1 { grid-area: 2 / 2 / 6 / 6; }
+#chq2 { grid-area: 3 / 3 / 6 / 6; }
+#chq3 { grid-area: 4 / 4 / 6 / 6; }
+#chq4 { grid-area: 5 / 5 / 6 / 6; }
+
+.q1 {
+    background-color: #444444 !important;
+    text-shadow: 1px 1px 2px #AAAAAA;
+}
+.q1win {
+    border: 2px double orange; 
+}
+.q2 {
+    background-color: #666666 !important;
+    text-shadow: 1px 1px 2px #AAAAAA;
+}
+.q2win { 
+    border: 2px double red; 
+}
+
+.q3 {
+    background-color: #888888 !important;
+    text-shadow: 1px 1px 2px #AAAAAA;
+}
+.q3win { 
+    border: 2px double blue; 
+}
+
+.q4 {
+    background-color: #AAAAAA !important;
+    text-shadow: 1px 1px 2px white;
+}
+.q4win { 
+    border: 2px double green; 
+}
+
+.nfcChampions {
+    /* background-image: url(https://static.www.nfl.com/t_q-best/league/api/clubs/logos/LA); */
+}
+
+.afcChampions {
+    /* background-image: url(https://static.www.nfl.com/t_q-best/league/api/clubs/logos/CIN); */
+}
+#champNFC {
+/* background-image: url(https://static.www.nfl.com/image/private/f_auto/league/eo223qd5mlxrna3bbdiv); */
+}
+
+#champAFC {
+    /* background-image: url(https://res.cloudinary.com/nflleague/image/private/f_auto/league/maacoshfmktzddy1ob56); */
+}
+   

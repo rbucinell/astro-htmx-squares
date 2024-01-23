@@ -1,7 +1,7 @@
 {
-  "name": "astro-htmx-typescript-tailwind-basic-template",
+  "name": "astro-htmx-squares",
   "version": "1.0.0",
-  "description": "A barebones scaffold for starting an Astro/HTMX/Typescript/Tailwind project",
+  "description": "Astro/HTMX Squares Board",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

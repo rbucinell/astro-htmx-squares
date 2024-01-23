@@ -1,24 +1,17 @@
 ---
 import '../styles/squares.css';
+import PurchaseSquaresAddon from "@components/PurchaseSquaresAddon.astro";
 import Square from "@components/Square.astro";
 import {SquareState} from "@components/Square.astro";
 
-const { picks } = Astro.props;
+const { price, picks } = Astro.props;
 
 const ROWS = 'ABCDEFGHIJ'.split('');
 const COLS = [...Array(10).keys()];
 const Qs = [1,2,3,4];
 
 ---
-<script is:inline>
-  let clickedSquares = [];
-</script>
-
-<div class="border border-zinc-700 p-2 min-w-[500px] max-w-[900px] flex flex-row">
-  <button id='submitSquaresButton' type="button" class=" h-8 px-3 inline-block rounded-full text-nfl-white bg-nfl-blue hover:bg-blue-900 active:bg-blue-700">Purchase</button>
-  <div class="px-1 font-semibold">Selected&nbsp;Squares:&nbsp;</div>
-  <div class="" id="clickedList"></div>
-</div>
+<PurchaseSquaresAddon price={price} />
 <div class="board-grid center text-center border border-solid border-gray-500"> 
 
   <div id="logo" class="bg-nfl-white border-0">
