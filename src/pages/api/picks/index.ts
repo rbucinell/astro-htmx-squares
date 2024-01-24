@@ -1,6 +1,6 @@
 import type { APIContext } from "astro";
-import {db, find, findOne} from "src/lib/mongodb";
-import { successJSON, errorResponse, error404 } from '../../../lib/response';
+import {db} from "src/lib/mongodb";
+import { successJSON, error404 } from '../../../lib/response';
 const collection = 'picks'
 
 export async function GET({ url, request }: APIContext){

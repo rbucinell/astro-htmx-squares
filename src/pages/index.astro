@@ -2,21 +2,20 @@
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import SquaresBoard from "@components/SquaresBoard.astro";
 import ScoreBoard from "@components/ScoreBoard.astro";
-import PurchaseModal from "@components/PurchaseModal.astro";
-
+import { GET as GetPicks } from '../pages/api/picks/index.ts';
 const price = 20;
 
 let picks = [];
-import { GET as GetPicks } from '../pages/api/picks/index.ts';
+
 const response = await GetPicks(Astro);
 const data = await response.json();
 picks = data.documents;
 
-let isSubmitted = false;
-if (Astro.request.method === "POST") {
-  isSubmitted = true;
-}
-export const prerender = true;
+// let isSubmitted = false;
+// if (Astro.request.method === "POST") {
+//   isSubmitted = true;
+// }
+//export const prerender = true;
 ---
 <DefaultLayout title="Squares"> 
     <main class="p-6">
