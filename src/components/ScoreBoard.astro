@@ -9,7 +9,8 @@ interface Props {
 
 const { purchased, price } = Astro.props;
 
-const scores = (await (await GetScores(Astro)).json()).documents;
+let scores = [];
+scores = (await (await GetScores(Astro)).json()).documents;
 let payouts = [0.1, 0.2, 0.3, 0.4].map( (payout:number) => (payout * ( purchased * price )) );
 ---
 <div class="container min-w-[500px] flex flex-row flex-auto max-w-[900px] justify-items-center">
