@@ -23,7 +23,7 @@ const { row, col, state=SquareState.OPEN, pick } = Astro.props;
 <td id={`${row}${col}`} class:list={["square overflow-auto p-0 w-14 h-14 border border-gray-500 font-bold aspect-square h-50 select-none"].concat(...stateClasses[state])}>
   { (state === SquareState.OPEN || state === SquareState.SELECTED) 
     ? <span>{row}{col}</span>
-    : <div><Fragment set:html={Helmet}/><p class="overflow-clip w-14 max-sm:w-8 px-1 text-xs">{`${pick.display}`.repeat(3)}</p></div>
+    : <div><Fragment set:html={Helmet}/><p class="overflow-clip w-14 h-4 max-sm:w-8 justify-center mx-auto text-xs">{`${pick.display.replace(' ','\xa0')}`}</p></div>
   }
 </td>
 
