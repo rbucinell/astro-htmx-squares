@@ -1,7 +1,7 @@
 
 const appId = `data-jzoii`;
 const baseUri = `https://us-east-1.aws.data.mongodb-api.com/app/${appId}/endpoint/data/v1`;
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+//process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 export async function find( collection, options = null) {
     const response = await db('find', collection, options);
