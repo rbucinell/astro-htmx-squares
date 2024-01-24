@@ -4,7 +4,8 @@ import PurchaseSquaresAddon from "@components/PurchaseSquaresAddon.astro";
 import Square from "@components/Square.astro";
 import {SquareState} from "@components/Square.astro";
 
-const { price, picks } = Astro.props;
+let { price, picks } = Astro.props;
+picks = picks || [];
 
 const ROWS = 'ABCDEFGHIJ'.split('');
 const COLS = [...Array(10).keys()];
