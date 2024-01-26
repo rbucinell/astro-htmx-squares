@@ -1,6 +1,4 @@
 ---
-import PurchaseModal from "./PurchaseModal.astro";
-
 const { price } = Astro.props;
 ---
 <script is:inline >
@@ -19,8 +17,7 @@ const { price } = Astro.props;
 <div class="border border-zinc-700 p-2 min-h-12 min-w-[500px] max-w-[900px] text-zinc-800 flex ">
     <div class="px-1 font-semibold">Selected&nbsp;Squares:&nbsp;</div>
     <div class="px-1 grow" id="clickedList"></div>
-    <button onclick="showDialog()" id="submitSquaresButton" class="hidden h-8 bg-transparent font-semibold px-4 border border-nfl-blue rounded-full hover:bg-blue-300 active:bg-blue-400" type="button">
+    <button onclick="showDialog()" id="submitSquaresButton" class="hidden h-8 bg-blue-400 font-semibold px-4 border border-nfl-blue rounded-full hover:bg-blue-300 active:bg-blue-400" type="button">
         <span>Purchase</span>
     </button>
 </div>
-<PurchaseModal price={price} />

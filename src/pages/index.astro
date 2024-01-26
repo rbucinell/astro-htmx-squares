@@ -18,8 +18,8 @@ picks = data.documents;
 //export const prerender = true;
 ---
 <DefaultLayout title="Squares"> 
-    <main class="p-6">
-        <SquaresBoard picks={picks} price={price} />
-        <ScoreBoard purchased={picks?.filter( p => p.paid).length} price={price} />
-      </main>
+    <main class="mx-auto">
+      <SquaresBoard picks={picks} price={price} />
+      <ScoreBoard purchased={picks?.filter( p => p.paid).length} price={price} />
+    </main>
 </DefaultLayout>

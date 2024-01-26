@@ -3,9 +3,21 @@ import '../styles/squares.css';
 import PurchaseSquaresAddon from "@components/PurchaseSquaresAddon.astro";
 import Square from "@components/Square.astro";
 import {SquareState} from "@components/Square.astro";
+import PurchaseModal from './PurchaseModal.astro';
 
 let { price, picks } = Astro.props;
 picks = picks || [];
+
+const CSS_COLOR_NAMES = ["Indigo", "DarkOrange", "AntiqueWhite", "Ivory", "DarkRed", "Aqua", "RoyalBlue", "DarkSalmon", "SaddleBrown", "LawnGreen", "Salmon", "MidnightBlue", "Black", "LightBlue", "SeaGreen", "DeepPink", "Silver", "DodgerBlue", "Olive", "FireBrick", "Orange", "OrangeRed", "Tan", "Crimson", "GhostWhite", "Gold", "Tomato", "DarkBlue", "Magenta", "Maroon", "MediumAquaMarine", "PeachPuff", "Wheat", "WhiteSmoke", "DarkKhaki", "Yellow", "PowderBlue", "MediumBlue", "PapayaWhip", "Gainsboro", "Lime", "Gray", "PaleVioletRed", "Teal", "Coral", "White", "Blue", "MistyRose", "Black"];
+let c = 0;
+let colormap = new Map();
+for( let pick of picks ){
+  if( !colormap.has(pick.email) ){
+    colormap.set(pick.email,CSS_COLOR_NAMES[ (c++) % CSS_COLOR_NAMES.length]);
+  }
+  pick.color = colormap.get(pick.email);
+}
+
 
 const ROWS = 'ABCDEFGHIJ'.split('');
 const COLS = [...Array(10).keys()];
@@ -13,7 +25,7 @@ const Qs = [1,2,3,4];
 
 ---
 <PurchaseSquaresAddon price={price} />
-<div class="board-grid center text-center border border-solid border-gray-500"> 
+<div class="board-grid center text-center border border-solid border-gray-500 max-sm:border-l-afc-primary max-sm:border-l-2 max-sm max-sm:border-t-2 max-sm:border-t-nfc-primary"> 
 
   <div id="logo" class="bg-nfl-white border-0">
     <img class="h-full max-h-full max-w-full justify-center" src="img/nfl-shield.svg">
@@ -55,7 +67,7 @@ const Qs = [1,2,3,4];
 
   <!--Main Grid -->
   <div id="gridsquares">
-    <table class="size-full">
+    <table class="size-full max-sm:border-l-afc-primary max-sm:border-l-2 max-sm max-sm:border-t-2 max-sm:border-t-nfc-primary">
       <tbody>
         {ROWS.map(row=>{
           return <tr>
@@ -74,3 +86,4 @@ const Qs = [1,2,3,4];
     </table>
   </div>
 </div>
+<PurchaseModal price={price} />

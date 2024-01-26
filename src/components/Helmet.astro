@@ -1,0 +1,7 @@
+---
+import HelmetSVG from '../icons/helmet.svg?raw';
+
+const {id, color='gray' } = Astro.props;
+const ColoredHelmet = HelmetSVG.replaceAll(`class="helmetColor"`,`fill="${color}"`);
+---
+<Fragment id={`helmet${id}`} set:html={ColoredHelmet}/>
