@@ -10,12 +10,6 @@ let picks = [];
 const response = await GetPicks(Astro);
 const data = await response.json();
 picks = data.documents;
-
-// let isSubmitted = false;
-// if (Astro.request.method === "POST") {
-//   isSubmitted = true;
-// }
-//export const prerender = true;
 ---
 <DefaultLayout title="Squares"> 
     <main class="mx-auto">
