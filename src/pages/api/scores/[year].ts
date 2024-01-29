@@ -1,5 +1,5 @@
 import type { APIContext } from "astro";
-import {db, find, findOne} from "src/lib/mongodb";
+import {db} from "src/lib/mongodb";
 import { successJSON, error404 } from '../../../lib/response';
 const collection = 'scores'
 
