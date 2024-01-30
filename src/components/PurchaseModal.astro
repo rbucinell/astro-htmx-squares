@@ -68,7 +68,7 @@ const { price } = Astro.props;
     const total = getTotal();
     let url = '';
     if( payment === 'venmo'){
-      url =`https://venmo.com/?audience=private&recipients=@rbucinell&amount=${total}&note=${clickedSquares.length}%20Superbowl%20Squares`;
+      url =`https://venmo.com/u/rbucinell?amount=${total}&note=${clickedSquares.length}%20Superbowl%20Squares`;
     } else {
       url =`https://paypal.me/rbucinell/${total}`;
     }
