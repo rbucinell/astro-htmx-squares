@@ -23,7 +23,7 @@ export async function POST( {request}: APIContext ) {
         let submissions = [];
         for( let pick of content.picks){
             let { name, email} = content;
-            let single = { display:name, email, pick};
+            let single = { display:name, email, pick, submitted: new Date()};
 
             if( !await recordExists( single ) ){
                 let response = await db('insertOne', collection, {
@@ -37,7 +37,6 @@ export async function POST( {request}: APIContext ) {
                 }
             }
             else{
-                console.log( JSON.stringify(single), 'exists')
                 submissions.push({...single, success: false, reason:'Already Taken'});
             }
         }

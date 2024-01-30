@@ -5,6 +5,17 @@ const { price } = Astro.props;
     let clickedSquares = [];
     
     function showDialog(){
+        const payLaterButton = document.querySelector('#payLaterButton');
+        const closeButton = document.querySelector('#closeButton');
+        const venmoButton = document.querySelector('#venmoButton');
+        const payPalButton = document.querySelector('#payPalButton');
+        payLaterButton.classList.add('hidden');
+        closeButton.classList.remove('hidden');
+        venmoButton.classList.add('hidden');
+        payPalButton.classList.add('hidden');
+        const submitButton = document.querySelector('#reserveButton');
+        submitButton.removeAttribute('disabled');
+        submitButton.classList.remove('hidden');
         document.querySelector('#squareCount').innerHTML = clickedSquares.length;
         document.querySelector('#multisquares').innerHTML = (clickedSquares.length > 1 ? 's' : '') + ` ($${getTotal()})`;
         let dialog = document.querySelector('#dialog');
@@ -16,7 +27,7 @@ const { price } = Astro.props;
   
 <div class="border border-zinc-700 p-2 min-h-12 min-w-[500px] max-w-[900px] text-zinc-800 flex ">
     <div class="px-1 font-semibold">Selected&nbsp;Squares:&nbsp;</div>
-    <div class="px-1 grow" id="clickedList"></div>
+    <div class="px-1 grow flex-wrap flex gap-1" id="clickedList"></div>
     <button onclick="showDialog()" id="submitSquaresButton" class="hidden h-8 bg-blue-400 font-semibold px-4 border border-nfl-blue rounded-full hover:bg-blue-300 active:bg-blue-400" type="button">
         <span>Purchase</span>
     </button>

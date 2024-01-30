@@ -3,8 +3,8 @@ import DefaultLayout from "@layouts/DefaultLayout.astro";
 import SquaresBoard from "@components/SquaresBoard.astro";
 import ScoreBoard from "@components/ScoreBoard.astro";
 import { GET as GetPicks } from '../pages/api/picks/index.ts';
-const price = 20;
 
+const price = 10;
 let picks = [];
 
 const response = await GetPicks(Astro);
@@ -12,8 +12,8 @@ const data = await response.json();
 picks = data.documents;
 ---
 <DefaultLayout title="Squares"> 
-    <main class="mx-auto">
-      <SquaresBoard picks={picks} price={price} />
-      <ScoreBoard purchased={picks?.filter( p => p.paid).length} price={price} />
-    </main>
+  <main class="mx-auto">
+    <SquaresBoard picks={picks} price={price} />
+    <ScoreBoard purchased={picks?.filter( p => p.paid).length} price={price} />
+  </main>
 </DefaultLayout>

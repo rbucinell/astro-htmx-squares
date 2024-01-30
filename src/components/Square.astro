@@ -32,13 +32,16 @@ const id = `${row}${col}`;
 <td id={id} class:list={["square overflow-auto p-0 w-14 h-12 max-h-12 border border-gray-500 font-bold aspect-square select-none"].concat(...stateClasses[state])}>
   { (state === SquareState.OPEN || state === SquareState.SELECTED) 
     ? <span>{row}{col}</span>
-    : <div class="max-h-12 overflow-hidden" title={`[${id}] ${pick.display}`}>
-      
-        <Helmet id={id} color={pick.color} />
-        <div class="bg-gray-200 bg-opacity-50 text-black overflow-clip mx-auto text-xs max-sm:bottom-3 max-w-14 max-md:bottom-4 bottom-6 relative">{`${pick.display.replace(' ','\xa0')}`}</div>
+    : <div class="max-h-12 overflow-hidden" title={`[${id}] ${pick.display}`}>      
+        <div class="helmet">
+          <Helmet id={id} color={pick.color} />
+          <div class="bg-gray-200 bg-opacity-50 text-black overflow-clip mx-auto text-xs max-sm:bottom-3 max-w-14 max-md:bottom-4 bottom-6 relative">{`${pick.display.replace(' ','\xa0')}`}</div>
+        </div>
+        <div class="print-only">
+          <div class="text-black break-all">{`${pick.display.replace(' ','\xa0')}`}</div>  
+        </div>
       </div>
   }
-  
 </td>
 <script define:vars={{ stateClasses, SquareState, id, row, col, state }}>
   let square = document.querySelector(`#${id}`);
@@ -70,7 +73,7 @@ const id = `${row}${col}`;
     else
       submitBtn.classList.remove('hidden');
     let listDiv = document.querySelector('#clickedList');
-    let html = clickedSquares.map( cs => `<span class="border-solid border-black">${cs.id}</span>`).join(' ');
+    let html = clickedSquares.map( cs => `<span class="p-1 border border-solid border-black">${cs.id}</span>`).join(' ');
     listDiv.innerHTML = html;
   }
 

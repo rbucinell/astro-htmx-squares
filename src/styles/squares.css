@@ -84,3 +84,15 @@
     /* background-image: url(https://res.cloudinary.com/nflleague/image/private/f_auto/league/maacoshfmktzddy1ob56); */
 }
    
+.print-only {
+    display: none;
+}
+@media print {
+    .print-only {
+        display: block;
+    }
+
+    .helmet {
+        display: none;
+    }
+}

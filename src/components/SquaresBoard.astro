@@ -4,6 +4,8 @@ import PurchaseSquaresAddon from "@components/PurchaseSquaresAddon.astro";
 import Square from "@components/Square.astro";
 import {SquareState} from "@components/Square.astro";
 import PurchaseModal from './PurchaseModal.astro';
+import { Icon } from 'astro-icon/components';
+
 
 let { price, picks } = Astro.props;
 picks = picks || [];
@@ -36,8 +38,12 @@ const Qs = [1,2,3,4];
   {Qs.map( q => <div class:list={["qFont",`q${q}`,"text-lg font-bold leading-normal text-left py-1"]} id={`chq${q}`}>Q{q}</div> )}
   
   <!-- NFC Headers -->
-  <div id="champNFC" class="bg-nfc-primary bg-center bg-no-repeat bg-cover border border-solid border-gray-500">
-    <img class="mw-100 mh-100 h-full" src="img/nfc-logo.svg">
+  <div id="champNFC" class="overflow-hidden flex justify-center bg-nfc-primary bg-center bg-no-repeat bg-cover border border-solid border-gray-500">
+    <!-- <div class="mw-100 mh-100 h-full">
+     <Icon name="afcChampionLogo" class="h-full" />
+    </div> -->
+    <Icon name="nfcChampionLogo" class=" h-60 relative top-[-150%]" />
+    <!-- <g class="mw-100 mh-100 h-full" src="img/nfc-logo.svg"></g>im -->
   </div>
   {Qs.map( q => { 
     return <div class:list={["text-lg font-bold leading-normal",`q${q}`]} id={`nfchq${q}`}>
@@ -50,10 +56,8 @@ const Qs = [1,2,3,4];
   })}
   
   <!-- AFC Headers -->
-  <div id="champAFC" class="text-lg font-bold leading-normal bg-afc-primary bg-center bg-no-repeat bg-cover flex flex-col justify-center border border-solid border-gray-500" >
-    <div id="afcBanner" class="">
-      <img src="img/afc-logo.svg" class="w-full">
-    </div>
+  <div id="champAFC" class="overflow-hidden text-lg font-bold leading-normal bg-afc-primary bg-center bg-no-repeat bg-cover flex flex-col justify-center border border-solid border-gray-500" >
+    <Icon name="afcChampionLogo" class="flex right-[150%] relative w-60" />
   </div>
   {Qs.map( q => { 
     return <div class:list={["column", "header",`q${q}`]} id={`afchq${q}`}>
