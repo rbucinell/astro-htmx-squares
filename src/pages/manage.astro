@@ -1,16 +1,45 @@
 ---
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import { GET as GetPicks } from '../pages/api/picks/index.ts';
+import { GET as GetScores } from '../pages/api/scores/index.ts';
 let picks = [];
 const response = await GetPicks(Astro);
 const data = await response.json();
 picks = data.documents;
 picks.sort( (a,b) => a.pick - b.pick );
+let scores = [];
+scores = (await (await GetScores(Astro)).json()).documents;
+console.log( scores );
 ---
 <DefaultLayout title="Manage">
-    <main class="mx-auto">
+    <main class="mx-auto max-w-screen-md">
+
+        <div class="w-full flex flex-row">
+            {[1,2,3,4].map( q =>{
+                let score = scores?.find( s => s.quarter === q );
+                return (<div class="w-1/4 border border-gray-500 border-b-4 pb-1 flex flex-col">
+                    <div class="flex flex-row pb-1">
+                        <span class="border border-black p-1 bg-gray-300">{`Q${q}`}</span>
+                        <span class:list={["grow bg-nfc-primary",`scores${q}`]}>{`NFC ${score?.nfc || '--'}`}</span>
+                        <span class:list={["grow bg-afc-primary",`scores${q}`]}>{`AFC ${score?.afc || '--'}`}</span>
+                    </div>
+                    <form class="flex flex-row p-1">
+                        <input type="number" class="w-[40%] border rouneded-sm border-nfc-primary" name="nfc" value={score?.nfc} />
+                        <input type="number" class="w-[40%] border rouneded-sm border-afc-primary" name="afc" value={score?.afc} />
+                        <button 
+                            type="submit"
+                            hx-put={`api/scores/${q}`}
+                            hx-include="closest form"
+                            hx-target={`#none`}
+                            class="border border-blue-500 rounded-md ml-1">SET<span id="none" /></button>
+                    </form>
+                </div>)
+            })}
+        </div>
+
+
         { picks.map( pick =>{
-            return <div id={pick.pick} class="text-black flex flex-row gap-1 p-2 border-b justify-between border-b-black max-w-screen-md">
+            return <div id={pick.pick} class="text-black flex flex-row gap-1 p-2 border-b justify-between border-b-black">
                 <div class="justify-start">
                     <span class="border border-black p-1 bg-gray-300">{pick.pick}</span>
                     <span class="px-1 border border-blue-800 rounded-md">Email: {pick.email}</span>

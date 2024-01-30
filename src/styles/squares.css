@@ -68,21 +68,6 @@
 .q4win { 
     border: 2px double green; 
 }
-
-.nfcChampions {
-    /* background-image: url(https://static.www.nfl.com/t_q-best/league/api/clubs/logos/LA); */
-}
-
-.afcChampions {
-    /* background-image: url(https://static.www.nfl.com/t_q-best/league/api/clubs/logos/CIN); */
-}
-#champNFC {
-/* background-image: url(https://static.www.nfl.com/image/private/f_auto/league/eo223qd5mlxrna3bbdiv); */
-}
-
-#champAFC {
-    /* background-image: url(https://res.cloudinary.com/nflleague/image/private/f_auto/league/maacoshfmktzddy1ob56); */
-}
    
 .print-only {
     display: none;
