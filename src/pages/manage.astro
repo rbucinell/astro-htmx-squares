@@ -5,19 +5,33 @@ let picks = [];
 const response = await GetPicks(Astro);
 const data = await response.json();
 picks = data.documents;
+picks.sort( (a,b) => a.pick - b.pick );
 ---
 <DefaultLayout title="Manage">
     <main class="mx-auto">
         { picks.map( pick =>{
-            return <div class="text-black flex flex-row gap-1 p-2 border-b justify-between border-b-black">
+            return <div id={pick.pick} class="text-black flex flex-row gap-1 p-2 border-b justify-between border-b-black max-w-screen-md">
                 <div class="justify-start">
-                    <span class="border-r border-r-black pr-1">{pick.pick}</span>
-                    <span class="">{pick.email}</span>
-                    <span class="">{pick.display} </span>
+                    <span class="border border-black p-1 bg-gray-300">{pick.pick}</span>
+                    <span class="px-1 border border-blue-800 rounded-md">Email: {pick.email}</span>
+                    <span class="px-1 border border-blue-800 rounded-md">Display: {pick.display} </span>
                 </div>
                 <div class="">
-                    <button type="button" onclick=`pay({pick.pick})` class="px-3 border border-green-800 rounded-md">Mark Paid</button>
-                    <button type="button" onclick=`pay({pick.pick})` class="px-3 border border-red-800 rounded-md">Delete</button>
+                    {(!pick.paid || pick.paid === 'false') &&
+                        <button type="button"
+                            hx-put={`api/picks/${pick.pick}?paid=true`}
+                            hx-swap="outerHTML"
+                            class="px-3 border border-green-800 rounded-md">
+                            <span>Mark Paid</span>
+                        </button>
+                    }
+                    
+                    <button type="button"
+                        hx-target={`#${pick.pick}`}  
+                        hx-swap="outerHTML" 
+                        hx-delete={`api/picks/${pick.pick}`} 
+                        class="px-3 border border-red-800 rounded-md">Delete
+                    </button>
                     
                 </div>
             </div>
