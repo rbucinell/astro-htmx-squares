@@ -23,7 +23,7 @@ export async function POST( {request}: APIContext ) {
         let submissions = [];
         for( let pick of content.picks){
             let { name, email} = content;
-            let single = { display:name, email, pick, submitted: new Date()};
+            let single = { display:name, email, pick, paid:false, submitted: new Date()};
 
             if( !await recordExists( single ) ){
                 let response = await db('insertOne', collection, {
