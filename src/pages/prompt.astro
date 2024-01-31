@@ -1,7 +1,6 @@
 ---
 //const formData = await Astro.request.formData();
 //const prompt = formData.get("prmopt").toString();
-console.log( Astro.request.method );
 ---
 <div hx-get="/prompt" hx-target="#form2out" hx-trigger="load delay:500s" class="text-green-800">
     <span>hi - { Date.now().toString() }</span>

@@ -9,7 +9,6 @@ picks = data.documents;
 picks.sort( (a,b) => a.pick - b.pick );
 let scores = [];
 scores = (await (await GetScores(Astro)).json()).documents;
-console.log( scores );
 ---
 <DefaultLayout title="Manage">
     <main class="mx-auto max-w-screen-md">
@@ -67,8 +66,3 @@ console.log( scores );
         })}
     </main>
 </DefaultLayout>
-<script is:inline>
-    function pay( id ){
-        console.log( id );
-    }
-</script>

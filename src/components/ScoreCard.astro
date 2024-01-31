@@ -1,11 +1,14 @@
 ---
+import type { Pick } from './Square.astro';
+
 interface Props {
   q: number,
   payout: number,
   afc: number,
-  nfc: number
+  nfc: number,
+  winner: Pick
 }
-const { q, payout, afc, nfc } = Astro.props;
+const { q, payout, afc, nfc, winner } = Astro.props;
 ---
 <div class="border w-full bg-slate-100 border-slate-500 my-1 mx-2 p-1 rounded-md" id={`q${q}scoreCard`}>
     <div class="flex-col">
@@ -14,11 +17,16 @@ const { q, payout, afc, nfc } = Astro.props;
             <div class="font-bold bg-green-700 text-white w-1/4 p-1 flex justify-center" id={`q${q}payout`}>${payout || '--'}</div>
         </div>
         <div class="flex flex-row justify-around">
-            <div class="bg-afc-primary border-afc-primary text-nfl-white font-bold h-12 w-full flex justify-center items-center line-h" id={`q${q}afc`}>{afc || '--'}</div>
-            <div class="bg-nfc-primary border-nfc-primary text-nfl-white font-bold h-12 w-full flex justify-center items-center line-h" id={`q${q}nfc`}>{nfc || '--'}</div>
+            <div class="bg-afc-primary border-afc-primary text-nfl-white font-bold h-12 w-full flex justify-center items-center line-h" id={`q${q}afc`}>
+                <span class="drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{afc || '--'}</span>
+            </div>
+            <div class="bg-nfc-primary border-nfc-primary text-nfl-white font-bold h-12 w-full flex justify-center items-center line-h" id={`q${q}nfc`}>
+                <span class="drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{nfc || '--'}</span>
+            </div>
         </div>
-        <div class:list={["w-full items-center", `q${q}win`]}>
-            winner
+        <div class:list={["w-full items-center h-full", `q${q}win`]}>
+            <span class="text-sm">Winner:</span>
+            <span class="font-bold">{winner?.display || '--'}</span>
         </div>
     </div>
 </div>

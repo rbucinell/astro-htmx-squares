@@ -14,7 +14,6 @@ export async function GET({ url, request }: APIContext){
 
 export async function POST( {request}: APIContext ) {
     let content = await request.json();
-    console.log( content );
 
     if( !content.email || !content.name || !content.picks || content.picks.length === 0){
         return errorResponse(400, null);

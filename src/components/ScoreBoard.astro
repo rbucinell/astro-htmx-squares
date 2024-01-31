@@ -1,21 +1,22 @@
 ---
 import ScoreCard from "./ScoreCard.astro";
-import { GET as GetScores } from '../pages/api/scores/index.ts';
 
 interface Props {
-  purchased: number,
-  price: number
+  picks: Array<any>,
+  price: number,
+  scores: Array<any>,
+  payouts: Array<number>
 }
 
-const { purchased, price } = Astro.props;
+let { picks, price, scores, payouts } = Astro.props;
+const purchased = picks?.filter( p => p.paid).length;
 
-let scores = [];
-scores = (await (await GetScores(Astro)).json()).documents;
-let payouts = [0.1, 0.2, 0.3, 0.4].map( (payout:number) => (payout * ( purchased * price )) );
+payouts = payouts.map( (payout:number) => (payout * ( purchased * price )) );
 ---
 <div class="container min-w-[500px] flex flex-row flex-auto max-w-[900px] justify-items-center">
   { payouts.map( (payout,i) =>  {
     let score = scores?.find( s => s.quarter === i+1 );
-    return <ScoreCard q={i+1} payout={ payout } afc={score?.afc} nfc={score?.nfc} /> 
+    let pick = picks?.find( p => p.won === i+1 )
+    return <ScoreCard q={i+1} payout={ payout } afc={score?.afc} nfc={score?.nfc} winner={pick} /> 
   })}
 </div>

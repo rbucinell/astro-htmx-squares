@@ -16,7 +16,8 @@ export interface Pick {
   display:string,
   paid:boolean,
   pick:string,
-  color?:string
+  won?:number,
+  color?:string,
 }
 
 interface Props {
@@ -25,11 +26,11 @@ interface Props {
   state?: SquareState,
   pick?: Pick,
 }
-
 const { row, col, state=SquareState.OPEN, pick } = Astro.props;
 const id = `${row}${col}`;
 ---
-<td id={id} class:list={["square overflow-auto p-0 w-14 h-12 max-h-12 border border-gray-500 font-bold aspect-square select-none"].concat(...stateClasses[state])}>
+<td id={id} class:list={["square overflow-auto p-0 w-14 h-12 max-h-12 font-bold aspect-square select-none border border-gray-500 border-1"].concat(...stateClasses[state])}>
+  <div class:list={['h-full', pick?.won !== null && `q${pick?.won}win`]}>
   { (state === SquareState.OPEN || state === SquareState.SELECTED) 
     ? <span>{row}{col}</span>
     : <div class="max-h-12 overflow-hidden" title={`[${id}] ${pick.display}`}>      
@@ -42,6 +43,7 @@ const id = `${row}${col}`;
         </div>
       </div>
   }
+  </div>
 </td>
 <script define:vars={{ stateClasses, SquareState, id, row, col, state }}>
   let square = document.querySelector(`#${id}`);

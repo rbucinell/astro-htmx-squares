@@ -3,17 +3,19 @@ import DefaultLayout from "@layouts/DefaultLayout.astro";
 import SquaresBoard from "@components/SquaresBoard.astro";
 import ScoreBoard from "@components/ScoreBoard.astro";
 import { GET as GetPicks } from '../pages/api/picks/index.ts';
+import { GET as GetSequences } from '../pages/api/sequences.ts';
+import { GET as GetScores } from '../pages/api/scores/index.ts';
 
 const price = 10;
-let picks = [];
+const payouts = [0.1, 0.2, 0.3, 0.4];
+const picks = (await (await GetPicks(Astro)).json()).documents || [];
+const sequences = (await (await GetSequences()).json()) || [];
+const scores = (await (await GetScores(Astro)).json()).documents || [];
 
-const response = await GetPicks(Astro);
-const data = await response.json();
-picks = data.documents;
 ---
 <DefaultLayout title="Squares"> 
   <main class="mx-auto">
-    <SquaresBoard picks={picks} price={price} />
-    <ScoreBoard purchased={picks?.filter( p => p.paid).length} price={price} />
+    <SquaresBoard picks={picks} sequences={sequences} price={price} scores={scores} />
+    <ScoreBoard picks={picks} price={price} scores={scores} payouts={payouts} />
   </main>
 </DefaultLayout>

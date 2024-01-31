@@ -5,12 +5,15 @@ import Square from "@components/Square.astro";
 import {SquareState} from "@components/Square.astro";
 import PurchaseModal from './PurchaseModal.astro';
 import { Icon } from 'astro-icon/components';
-
-
-let { price, picks } = Astro.props;
-picks = picks || [];
+import { getWinners } from 'src/lib/scores';
 
 const CSS_COLOR_NAMES = ["Indigo", "DarkOrange", "AntiqueWhite", "Ivory", "DarkRed", "Aqua", "RoyalBlue", "DarkSalmon", "SaddleBrown", "LawnGreen", "Salmon", "MidnightBlue", "Black", "LightBlue", "SeaGreen", "DeepPink", "Silver", "DodgerBlue", "Olive", "FireBrick", "Orange", "OrangeRed", "Tan", "Crimson", "GhostWhite", "Gold", "Tomato", "DarkBlue", "Magenta", "Maroon", "MediumAquaMarine", "PeachPuff", "Wheat", "WhiteSmoke", "DarkKhaki", "Yellow", "PowderBlue", "MediumBlue", "PapayaWhip", "Gainsboro", "Lime", "Gray", "PaleVioletRed", "Teal", "Coral", "White", "Blue", "MistyRose", "Black"];
+const ROWS = 'ABCDEFGHIJ'.split('');
+const COLS = [...Array(10).keys()];
+const Qs = [1,2,3,4];
+
+let { price, picks, sequences, scores } = Astro.props;
+
 let c = 0;
 let colormap = new Map();
 for( let pick of picks ){
@@ -20,10 +23,16 @@ for( let pick of picks ){
   pick.color = colormap.get(pick.email);
 }
 
+let winners = getWinners( scores, sequences );
 
-const ROWS = 'ABCDEFGHIJ'.split('');
-const COLS = [...Array(10).keys()];
-const Qs = [1,2,3,4];
+for( let [i,winner] of winners.entries() ){
+  if( winner ) {
+    let pick = picks.find( p => p.pick === winner );
+    if( pick ){
+      pick.won = i+1;
+    }
+  }
+}
 
 ---
 <PurchaseSquaresAddon price={price} />
@@ -49,7 +58,7 @@ const Qs = [1,2,3,4];
     return <div class:list={["text-lg font-bold leading-normal",`q${q}`]} id={`nfchq${q}`}>
       <table class="size-full border-l border-solid border-gray-500">
         <tbody>
-          <tr id={`nfchq${q}-numbers`}>{COLS.map( c=> <td id={`nfc-h-q${q}-${c}`} class="max-sm:text-sm">#</td>)}</tr>
+          <tr id={`nfchq${q}-numbers`}>{COLS.map( c=> <td id={`nfc-h-q${q}-${c}`} class="max-sm:text-sm">{sequences.nfc[`q${q}`][c]}</td>)}</tr>
         </tbody>
       </table>
     </div>
@@ -60,10 +69,10 @@ const Qs = [1,2,3,4];
     <Icon name="afcChampionLogo" class="flex right-[150%] relative w-60" />
   </div>
   {Qs.map( q => { 
-    return <div class:list={["column", "header",`q${q}`]} id={`afchq${q}`}>
+    return <div class:list={["column font-bold header",`q${q}`]} id={`afchq${q}`}>
       <table class="size-full border-t border-solid border-gray-500">
         <tbody>
-          {ROWS.map( r=><tr><td id={`afc-h-q${q}-${r}`} class="max-sm:text-sm" >#</td></tr>)}
+          {ROWS.map( (r,i)=><tr><td id={`afc-h-q${q}-${r}`} class="max-sm:text-sm" >{sequences.afc[`q${q}`][i]}</td></tr>)}
         </tbody>
       </table>
     </div>
@@ -76,7 +85,6 @@ const Qs = [1,2,3,4];
         {ROWS.map(row=>{
           return <tr>
             {COLS.map( col =>{
-
               let state = SquareState.OPEN;
               let pick = picks?.find( doc => doc.pick === `${row}${col}`);
               if( pick ) {
@@ -91,3 +99,4 @@ const Qs = [1,2,3,4];
   </div>
 </div>
 <PurchaseModal price={price} />
+
