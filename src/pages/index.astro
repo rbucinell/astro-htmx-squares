@@ -14,7 +14,7 @@ const scores = (await (await GetScores(Astro)).json()).documents || [];
 
 ---
 <DefaultLayout title="Squares"> 
-  <main class="mx-auto">
+  <main class="mx-auto w-fit">
     <SquaresBoard picks={picks} sequences={sequences} price={price} scores={scores} />
     <ScoreBoard picks={picks} price={price} scores={scores} payouts={payouts} />
   </main>
