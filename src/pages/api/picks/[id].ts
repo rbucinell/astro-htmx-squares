@@ -11,26 +11,37 @@ export async function GET({ params }: APIContext){
 }
 
 export async function PUT({ request, params, url }: APIContext){
-    const { id } = params;
-    let content = {};
+    try{
+        const { id } = params;
+        let content = {};
+        
+        //take query parameters first, but override with body content
+        url.searchParams?.forEach( (v,k) => content[k] = v);
+        if( request.headers.get("Content-Length") !== '0'){
+            let json = await request.json();
+            for(let key in json){
 
-    //take query parameters first, but override with body content
-    url.searchParams.forEach( (v,k) => content[k] = v);
-    if( request.headers.get("Content-Length") !== '0'){
-        let json = await request.json();
-        for(let key in json){
-
-            let val = json[key];
-            if( key === 'paid')
-                val = val === 'true';
-            content[key] = val
+                let val = json[key];
+                if( key === 'paid')
+                    val = val === 'true';
+                content[key] = val
+            }
+        }
+        
+        let response = await db('updateOne', collection, {filter:{ pick: id }, update:{ "$set": {...content} }});
+        let data = await response.json();
+        if( response.status.toString().startsWith('2') ){            
+            if( data.matchedCount === 0 || data.modifiedCount === 0 ) return error404();
+            return successJSON(null,201);
+        }else{
+            return successJSON(data,response.status);
         }
     }
-    
-    let response = await db('updateOne', collection, {filter:{ pick: id }, update:{ "$set": {...content} }});
-    let data = await response.json();
-    if( data.matchedCount === 0 || data.modifiedCount === 0 ) return error404( JSON.stringify(data));
-    return successJSON(null,201);
+    catch( err )
+    {
+        console.log( err)
+        return errorResponse( 500, err );
+    }
 }
 
 export async function DELETE({ params }: APIContext){
