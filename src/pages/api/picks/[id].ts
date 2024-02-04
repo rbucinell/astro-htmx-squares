@@ -18,16 +18,16 @@ export async function PUT({ request, params, url }: APIContext){
         errMessage = 'construction';
         //take query parameters first, but override with body content
         url.searchParams?.forEach( (v,k) => content[k] = v);
-        if( request.headers.get("Content-Length") !== '0'){
-            let json = await request.json();
-            for(let key in json){
+        // if( request.headers.get("Content-Length") !== '0'){
+        //     let json = await request.json();
+        //     for(let key in json){
 
-                let val = json[key];
-                if( key === 'paid')
-                    val = val === 'true';
-                content[key] = val
-            }
-        }
+        //         let val = json[key];
+        //         if( key === 'paid')
+        //             val = val === 'true';
+        //         content[key] = val
+        //     }
+        // }
         errMessage = 'db submit';
         let response = await db('updateOne', collection, {filter:{ pick: id }, update:{ "$set": {...content} }});
         errMessage = 'json';
