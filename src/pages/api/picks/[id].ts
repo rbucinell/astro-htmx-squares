@@ -11,11 +11,10 @@ export async function GET({ params }: APIContext){
 }
 
 export async function PUT({ request, params, url }: APIContext){
-    let errMessage = 'init';
     try{
         const { id } = params;
         let content = {};
-        errMessage = 'construction';
+
         //take query parameters first, but override with body content
         url.searchParams?.forEach( (v,k) => content[k] = v);
         // if( request.headers.get("Content-Length") !== '0'){
@@ -28,13 +27,12 @@ export async function PUT({ request, params, url }: APIContext){
         //         content[key] = val
         //     }
         // }
-        errMessage = 'db submit';
+        
         let response = await db('updateOne', collection, {filter:{ pick: id }, update:{ "$set": {...content} }});
-        errMessage = 'json';
         let data = await response.json();
-        errMessage = 'process';
         if( response.status.toString().startsWith('2') ){            
-            if( data.matchedCount === 0 || data.modifiedCount === 0 ) return error404();
+            if( data.matchedCount === 0 || data.modifiedCount === 0 ) 
+                return error404();
             return new Response(null, { status: 201 });
         }else{
             return new Response(data, { status: response.status});
@@ -42,7 +40,7 @@ export async function PUT({ request, params, url }: APIContext){
     }
     catch( err )
     {
-        return new Response(err, { status: 500, statusText: errMessage });
+        return new Response(err, { status: 500 });
     }
 }
 
