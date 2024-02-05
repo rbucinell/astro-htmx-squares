@@ -39,22 +39,23 @@ scores = (await (await GetScores(Astro)).json()).documents;
 
         { picks.map( pick =>{
             return <div id={pick.pick} class="text-black flex flex-row gap-1 p-2 border-b justify-between border-b-black">
-                <div class="justify-start">
+                <div class="justify-start flex-wrap">
                     <span class="border border-black p-1 bg-gray-300">{pick.pick}</span>
-                    <span class="px-1 border border-blue-800 rounded-md">Email: {pick.email}</span>
-                    <span class="px-1 border border-blue-800 rounded-md">Display: {pick.display} </span>
+                    <span class="px-1 border border-blue-800 rounded-md">Display:&nbsp;{pick.display} </span>
+                    <span class="px-1 border border-blue-800 rounded-md">Email:&nbsp;{pick.email}</span>
                 </div>
-                <div class="">
+                <div class="flex flex-col justify-evenly flex-grow ">
                     {(!pick.paid || pick.paid === 'false') &&
                         <button type="button"
                             hx-put={`api/picks/${pick.pick}?paid=true`}
                             hx-swap="outerHTML"
                             class="px-3 border border-green-800 rounded-md">
-                            <span>Mark Paid</span>
+                            <span>Mark&nbsp;Paid</span>
                         </button>
                     }
                     
                     <button type="button"
+                        hx-confirm={`Are you sure you want to delete ${pick.pick}?`}
                         hx-target={`#${pick.pick}`}  
                         hx-swap="outerHTML" 
                         hx-delete={`api/picks/${pick.pick}`} 
