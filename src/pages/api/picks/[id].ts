@@ -1,6 +1,6 @@
 import type { APIContext } from "astro";
 import {db} from "src/lib/mongodb";
-import { successJSON, errorResponse, error404 } from '../../../lib/response';
+import { successJSON, error404 } from '../../../lib/response';
 const collection = 'picks'
 
 export async function GET({ params }: APIContext){
@@ -27,7 +27,7 @@ export async function PUT({ request, params, url }: APIContext){
         //         content[key] = val
         //     }
         // }
-        
+
         let response = await db('updateOne', collection, {filter:{ pick: id }, update:{ "$set": {...content} }});
         let data = await response.json();
         if( response.status.toString().startsWith('2') ){            
