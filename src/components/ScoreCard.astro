@@ -14,7 +14,9 @@ const { q, payout, afc, nfc, winner } = Astro.props;
     <div class="flex-col">
         <div class="flex max-sm:flex-col flex-row justify-between">
             <div class="font-bold text-lg">{ q === 4 ? 'Final' : `End of Q${q}`}</div>
-            <div class="font-bold w-auto bg-green-700 text-white w-1/4 p-1 flex justify-center" id={`q${q}payout`}>${payout || '--'}</div>
+            <div class="font-bold max-sm:w-auto  w-1/4 p-1 flex justify-center bg-green-700 text-white" id={`q${q}payout`}>
+                <span class="drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">${payout || '--'}</span>
+            </div>
         </div>
         <div class="flex flex-row justify-around">
             <div class="bg-afc-primary border-afc-primary text-nfl-white font-bold h-12 w-full flex justify-center items-center line-h" id={`q${q}afc`}>
