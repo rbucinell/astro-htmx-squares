@@ -3,7 +3,7 @@ import {db} from "src/lib/mongodb";
 import { successJSON } from '../../lib/response';
 const collection = 'sequences';
 const randomSeed = 'superbowl58_2024';
-const kickoff = new Date('February 11, 2024 18:00:00');
+const kickoff = new Date('February 11, 2024 10:00:00');
 
 async function sequence( division, quarter )
 {
