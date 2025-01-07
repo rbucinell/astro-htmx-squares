@@ -2,7 +2,7 @@
 
 Iteractive Superbowl Squares Board
 
-![alt text](https://github.com/rbucinell/astro-htmx-squares/blob/master/sample-squares-board.png?raw=true)
+![alt text](https://github.com/rbucinell/astro-htmx-squares/blob/master/public/img/sample-squares-board.png?raw=true)
 
 
 ### Installation
