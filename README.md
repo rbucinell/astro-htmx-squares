@@ -1,6 +1,9 @@
-# Astro-HTMX-Typescript-Tailwind Baisc Template
+# Superbowl Squares Board
 
-A barebones scaffold for starting an Astro/HTMX/Typescript/Tailwind project. 
+Iteractive Superbowl Squares Board
+
+![alt text](https://github.com/rbucinell/astro-htmx-squares/blob/master/sample-squares-board.png?raw=true)
+
 
 ### Installation
 ```
