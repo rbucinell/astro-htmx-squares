@@ -1,9 +1,8 @@
-import type { APIContext } from "astro";
 import {db} from "src/lib/mongodb";
 import { successJSON } from '../../lib/response';
 const collection = 'sequences';
-const randomSeed = 'superbowl58_2024';
-const kickoff = new Date('February 11, 2024 10:00:00');
+const randomSeed = 'superbowl58_2025';
+const kickoff = new Date('February 11, 2025 10:00:00');
 
 async function sequence( division, quarter )
 {
@@ -17,8 +16,7 @@ async function sequence( division, quarter )
         return sequence;
     }else{
         return data.document.sequence;
-    }
-    
+    }    
 }
 
 async function randomOrgSequence( division:string, quater:number ): Promise<Array<number>> {
@@ -34,19 +32,6 @@ export async function GET() {
         afc: { q1: ['#','#','#','#','#','#','#','#','#','#'], q2: ['#','#','#','#','#','#','#','#','#','#'], q3: ['#','#','#','#','#','#','#','#','#','#'], q4: ['#','#','#','#','#','#','#','#','#','#'] },
         nfc: { q1: ['#','#','#','#','#','#','#','#','#','#'], q2: ['#','#','#','#','#','#','#','#','#','#'], q3: ['#','#','#','#','#','#','#','#','#','#'], q4: ['#','#','#','#','#','#','#','#','#','#'] }
     };
-
-    // for( let q = 1; q <= 4; q++ )
-    // {
-
-    //     sequences.afc[`q${q}`] = await sequence('afc', q);
-    //     sequences.nfc[`q${q}`] = await sequence('nfc', q);
-    // }
-
-    // //just for demo purposes, test data
-    // return successJSON(sequences);
-
-    
-    
 
     if( new Date() > kickoff)
     {
