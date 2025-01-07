@@ -7,6 +7,9 @@ import PurchaseModal from './PurchaseModal.astro';
 import { Icon } from 'astro-icon/components';
 import { getWinners } from 'src/lib/scores';
 
+//https://logotyp.us/logo/nfl/
+
+
 const CSS_COLOR_NAMES = ["Indigo", "DarkOrange", "AntiqueWhite", "Ivory", "DarkRed", "Aqua", "RoyalBlue", "DarkSalmon", "SaddleBrown", "LawnGreen", "Salmon", "MidnightBlue", "Black", "LightBlue", "SeaGreen", "DeepPink", "Silver", "DodgerBlue", "Olive", "FireBrick", "Orange", "OrangeRed", "Tan", "Crimson", "GhostWhite", "Gold", "Tomato", "DarkBlue", "Magenta", "Maroon", "MediumAquaMarine", "PeachPuff", "Wheat", "WhiteSmoke", "DarkKhaki", "Yellow", "PowderBlue", "MediumBlue", "PapayaWhip", "Gainsboro", "Lime", "Gray", "PaleVioletRed", "Teal", "Coral", "White", "Blue", "MistyRose", "Black"];
 const ROWS = 'ABCDEFGHIJ'.split('');
 const COLS = [...Array(10).keys()];
@@ -48,11 +51,7 @@ for( let [i,winner] of winners.entries() ){
   
   <!-- NFC Headers -->
   <div id="champNFC" class="overflow-hidden flex justify-center bg-nfc-primary bg-center bg-no-repeat bg-cover border border-solid border-gray-500">
-    <!-- <div class="mw-100 mh-100 h-full">
-     <Icon name="afcChampionLogo" class="h-full" />
-    </div> -->
-    <Icon name="nfcChampionLogo" class=" h-60 relative top-[-150%]" />
-    <!-- <g class="mw-100 mh-100 h-full" src="img/nfc-logo.svg"></g>im -->
+    <img class="w-full" src="img/nfc-logo.svg" />
   </div>
   {Qs.map( q => { 
     return <div class:list={["text-lg font-bold leading-normal",`q${q}`]} id={`nfchq${q}`}>
@@ -65,8 +64,9 @@ for( let [i,winner] of winners.entries() ){
   })}
   
   <!-- AFC Headers -->
-  <div id="champAFC" class="overflow-hidden text-lg font-bold leading-normal bg-afc-primary bg-center bg-no-repeat bg-cover flex flex-col justify-center border border-solid border-gray-500" >
-    <Icon name="afcChampionLogo" class="flex right-[150%] relative w-60" />
+  <div id="champAFC" class="overflow-hidden text-lg font-bold leading-normal flex flex-col justify-center 
+    bg-afc-primary bg-center bg-no-repeat bg-cover border border-solid border-gray-500" >
+    <img class="w-full" src="img/afc-logo.svg">
   </div>
   {Qs.map( q => { 
     return <div class:list={["column font-bold header",`q${q}`]} id={`afchq${q}`}>
