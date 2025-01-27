@@ -12,9 +12,9 @@ module.exports = {
           'nfl-blue': '#013369',
           'nfl-white': '#FFFFFF',
           'afc-primary': '#E31837',
-          'afc-secondary': '#FFFFFF',
-          'nfc-primary': '#013369',
-          'nfc-secondary': '#FFFFFF'
+          'afc-secondary': '#FFB81C',
+          'nfc-primary': '#004C54',
+          'nfc-secondary': '#A5ACAF'
         }
       }
     },
