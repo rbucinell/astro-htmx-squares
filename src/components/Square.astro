@@ -28,8 +28,17 @@ interface Props {
 }
 const { row, col, state=SquareState.OPEN, pick } = Astro.props;
 const id = `${row}${col}`;
+const hashCode = s => s.split('').reduce((a,b) => (((a << 5) - a) + b.charCodeAt(0))|0, 0)
+const hash = 's'+hashCode(`${pick?.email}`)
 ---
-<td id={id} class:list={["square overflow-auto p-0 w-14 h-12 max-h-12 font-bold aspect-square select-none border border-gray-500 border-1"].concat(...stateClasses[state])}>
+<style is:global>
+  .hoverAll{
+    -webkit-box-shadow:inset 0px 0px 0px 2px black;
+    -moz-box-shadow:inset 0px 0px 0px 2px black;
+    box-shadow:inset 0px 0px 0px 2px black;
+  }
+</style>
+<td id={id} class:list={[hash,"square overflow-auto p-0 w-14 h-12 max-h-12 font-bold aspect-square select-none border border-gray-500 border-1"].concat(...stateClasses[state])}>
   <div class:list={['h-full', pick?.won !== null && `q${pick?.won}win`]}>
   { (state === SquareState.OPEN || state === SquareState.SELECTED) 
     ? <span>{row}{col}</span>
@@ -45,10 +54,18 @@ const id = `${row}${col}`;
   }
   </div>
 </td>
-<script define:vars={{ stateClasses, SquareState, id, row, col, state }}>
+<script define:vars={{ stateClasses, SquareState, id, row, col, state, hash }}>
   let square = document.querySelector(`#${id}`);
   if( state !== SquareState.RESERVED && state !== SquareState.BOOKED)
     square.addEventListener('click', selectPick);
+  else {
+    square.addEventListener('mouseenter', () =>{
+      document.querySelectorAll(`.${hash}`).forEach( sq => sq.classList.add('hoverAll'));
+    });
+    square.addEventListener('mouseleave', ()=>{
+      document.querySelectorAll(`.${hash}`).forEach( sq => sq.classList.remove('hoverAll'));
+    });
+  }
 
   function selectPick() {
     //ensure the array exists
