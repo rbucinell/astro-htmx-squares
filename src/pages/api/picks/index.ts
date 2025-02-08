@@ -21,7 +21,7 @@ export async function POST( {request}: APIContext ) {
     else{
         let submissions = [];
         for( let pick of content.picks){
-            let { name, email} = content;
+            let { name, email } = content;
             let single = { display:name, email, pick, paid:false, submitted: new Date()};
 
             if( !await recordExists( single ) ){
@@ -44,7 +44,7 @@ export async function POST( {request}: APIContext ) {
 }
 
 async function recordExists( record: any) {
-    let response = await db('findOne', collection, {filter:{ ...record }});
+    let response = await db('findOne', collection, {filter:{ pick: record.pick }});
     let data = await response.json();
     let document = data.document;
     return document !== null;
