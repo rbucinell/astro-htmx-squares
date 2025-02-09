@@ -3,7 +3,7 @@ import {db} from "src/lib/mongodb";
 import { successJSON, errorResponse, error404 } from '../../../lib/response';
 const collection = 'picks'
 
-export async function GET({ url, request }: APIContext){
+export async function GET(){
     const response = await db('find', collection );
     const data = await response.json();
     if( data.length === 0 ){

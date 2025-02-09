@@ -3,6 +3,7 @@ import { successJSON } from '../../lib/response';
 const collection = 'sequences';
 const randomSeed = 'superbowl58_2025';
 const kickoff = new Date('February 11, 2025 10:00:00');
+import { GET as GetPicks } from '../api/picks/index.ts';
 
 async function sequence( division, quarter )
 {
@@ -41,7 +42,9 @@ export async function GET() {
             q4: ['#','#','#','#','#','#','#','#','#','#'] }
     };
 
-    if( new Date() > kickoff)
+    const pickTotal = (await (await GetPicks()).json() ).documents.length;
+
+    if( (new Date() > kickoff) || pickTotal === 100)
     {
         for( let q = 1; q <= 4; q++ )
         {
