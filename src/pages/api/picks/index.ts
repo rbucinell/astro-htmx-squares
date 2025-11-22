@@ -1,11 +1,18 @@
 import type { APIContext } from "astro";
-import {db} from "src/lib/mongodb";
+import connectDB from '../../../lib/mongodb';
 import { successJSON, errorResponse, error404 } from '../../../lib/response';
-const collection = 'picks'
+import Pick, { IPick } from "../../../models/picks";
 
 export async function GET(){
-    const response = await db('find', collection );
-    const data = await response.json();
+    await connectDB();
+
+    const data:IPick = await Pick.find();
+
+
+
+    //const response = await db('find', collection );
+    //const data = await response.json();
+    console.log( data );
     if( data.length === 0 ){
         return error404();
     }
