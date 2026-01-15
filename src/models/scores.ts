@@ -1,7 +1,6 @@
 import mongoose, { Schema, Types } from "mongoose";
 
 export interface IScore extends Document {
-    _id: mongoose.Types.ObjectId;
     year: number;
     quarter: number;
     nfc: number;

@@ -1,7 +1,6 @@
 import type { APIContext } from "astro";
-import {db} from "src/lib/mongodb";
 import { successJSON, error404 } from '../../../lib/response';
-const collection = 'scores'
+import Score, { type IScore } from "src/models/scores";
 
 export async function GET({ params }: APIContext){
     let {quarter} = params;
@@ -11,12 +10,11 @@ export async function GET({ params }: APIContext){
     }
 
     try{
-        const response = await db('findOne', collection, {filter:{quarter:q}});
-        const data = await response.json();
-        if( !data.document ){
+        const data = await Score.findOne({ quarter: q }).lean();
+        if( !data ){
             return error404();
         }
-        return successJSON( data.document );
+        return successJSON( data );
     }
     catch( error ){
         console.error( 'Error:', error);

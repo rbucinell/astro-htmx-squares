@@ -8,9 +8,9 @@ import { GET as GetScores } from '../pages/api/scores/index.ts';
 
 const price = 10;
 const payouts = [0.1, 0.2, 0.3, 0.4];
-const picks = (await (await GetPicks(Astro)).json()).documents || [];
+const picks = (await (await GetPicks()).json()) || [];
 const sequences = (await (await GetSequences()).json()) || [];
-const scores = (await (await GetScores(Astro)).json()).documents || [];
+const scores = (await (await GetScores(Astro)).json()) || [];
 
 ---
 <DefaultLayout title="Squares"> 

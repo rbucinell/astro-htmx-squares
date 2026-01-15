@@ -12,9 +12,9 @@
   "author": "Ryan Bucinell",
   "license": "MIT",
   "dependencies": {
-    "@astrojs/tailwind": "^5.0.4",
-    "@astrojs/vercel": "^9.0.1",
-    "astro": "^5.16.0",
+    "@astrojs/tailwind": "^6.0.2",
+    "@astrojs/vercel": "^8.0.4",
+    "astro": "^5.16.6",
     "astro-htmx": "^1.0.5",
     "astro-icon": "^1.0.3",
     "dotenv": "^17.2.3",

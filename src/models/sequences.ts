@@ -1,7 +1,6 @@
 import mongoose, { Schema, Types } from "mongoose";
 
 export interface ISequence extends Document {
-    _id: mongoose.Types.ObjectId;
     division: string;
     quarter: number;
     year: number;

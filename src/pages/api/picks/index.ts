@@ -1,18 +1,12 @@
 import type { APIContext } from "astro";
 import connectDB from '../../../lib/mongodb';
 import { successJSON, errorResponse, error404 } from '../../../lib/response';
-import Pick, { IPick } from "../../../models/picks";
+import UserPick, { type IUserPick } from "../../../models/picks";
 
-export async function GET(){
+export async function GET(): Promise<Response> {
     await connectDB();
 
-    const data:IPick = await Pick.find();
-
-
-
-    //const response = await db('find', collection );
-    //const data = await response.json();
-    console.log( data );
+    const data:IUserPick[] = await UserPick.find();
     if( data.length === 0 ){
         return error404();
     }
@@ -32,9 +26,7 @@ export async function POST( {request}: APIContext ) {
             let single = { display:name, email, pick, paid:false, submitted: new Date()};
 
             if( !await recordExists( single ) ){
-                let response = await db('insertOne', collection, {
-                    document: single
-                } );
+                const response = await UserPick.create( single );
                 if( response.status === 201 ){
                     submissions.push({...single, success: true});
                 }
@@ -51,8 +43,6 @@ export async function POST( {request}: APIContext ) {
 }
 
 async function recordExists( record: any) {
-    let response = await db('findOne', collection, {filter:{ pick: record.pick }});
-    let data = await response.json();
-    let document = data.document;
-    return document !== null;
+    const data:IUserPick = await UserPick.findOne().where('pick').equals( record.pick );
+    return data !== null;
 }

@@ -1,23 +1,20 @@
-import {db} from "src/lib/mongodb";
+
+import Sequence, { type ISequence } from 'src/models/sequences.ts';
 import { successJSON } from '../../lib/response';
 const collection = 'sequences';
 const randomSeed = 'superbowl58_2025';
-const kickoff = new Date('February 11, 2025 10:00:00');
+const kickoff = new Date('February 8, 2026 18:00:00');
 import { GET as GetPicks } from '../api/picks/index.ts';
 
-async function sequence( division, quarter )
+async function sequence( division:string, quarter:number, year:number = new Date().getFullYear() ): Promise<ISequence>
 {
-    const response = await db('findOne', collection, {filter:{ division, quarter}} ); 
-    const data = await response.json();
-    if( !data.document ){
-        let sequence = await randomOrgSequence( division, quarter );
-        await db('insertOne', collection, {
-            document: { division, quarter, sequence }
-        } );
+    let sequence:ISequence = await Sequence.findOne({ division, quarter } as any).lean();
+    if(!sequence){
+        const newSequence = await randomOrgSequence( division, quarter );
+        sequence = await Sequence.create({ division, quarter, sequence: newSequence, year });
         return sequence;
-    }else{
-        return data.document.sequence;
-    }    
+    }
+    return sequence;
 }
 
 async function randomOrgSequence( division:string, quater:number ): Promise<Array<number>> {
@@ -42,7 +39,7 @@ export async function GET() {
             q4: ['#','#','#','#','#','#','#','#','#','#'] }
     };
 
-    const pickTotal = (await (await GetPicks()).json() ).documents.length;
+    const pickTotal = (await (await GetPicks()).json() ).length;
 
     if( (new Date() > kickoff) || pickTotal === 100)
     {

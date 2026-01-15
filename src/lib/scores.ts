@@ -12,8 +12,8 @@ export function getWinners( scores, sequences ): Array<string>
         let afcDigit = score.afc % 10;
         let nfcDigit = score.nfc % 10;
 
-        let row = ROWS[sequences.afc[`q${q}`].indexOf( afcDigit )];
-        let col = sequences.nfc[`q${q}`].indexOf( nfcDigit );
+        let row = ROWS[sequences.afc[`q${q}`].sequence.indexOf( afcDigit )];
+        let col = sequences.nfc[`q${q}`].sequence.indexOf( nfcDigit );
 
         winners[q-1] = `${row}${col}`;
     }

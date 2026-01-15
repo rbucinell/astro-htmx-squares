@@ -1,7 +1,6 @@
-import mongoose, { Schema, Types } from "mongoose";
+import mongoose, { Schema, Types, Document } from "mongoose";
 
-export interface IPick {
-    _id: Types.ObjectId;
+export interface IUserPick {
     display: string;
     email: string;
     pick: string;
@@ -9,7 +8,7 @@ export interface IPick {
     submitted: Date;
 }
 
-const pickSchema = new Schema<IPick>({
+const pickSchema = new Schema<IUserPick>({
     display: { type: String },
     email: { type: String },
     pick: { type: String },
@@ -19,5 +18,5 @@ const pickSchema = new Schema<IPick>({
     collection: 'picks'
 });
 
-const Pick = mongoose.models.Pick || mongoose.model<IPick>('Pick', pickSchema );
-export default Pick;
+const UserPick = mongoose.models.UserPick || mongoose.model<IUserPick>('UserPick', pickSchema );
+export default UserPick;

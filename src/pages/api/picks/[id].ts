@@ -1,13 +1,14 @@
 import type { APIContext } from "astro";
-import {db} from "src/lib/mongodb";
 import { successJSON, error404 } from '../../../lib/response';
+import UserPick from "src/models/picks";
 const collection = 'picks'
 
 export async function GET({ params }: APIContext){
     const { id } = params;
-    let response = await db('findOne', collection, {filter:{ pick: id }});
-    let data = await response.json();
-    return !data.document ? error404() : successJSON( data.document );
+    console.log( id );
+    let response = await UserPick.findOne().where('pick').equals( id );
+    console.log( response );
+    return !response ? error404() : successJSON( response );
 }
 
 export async function PUT({ request, params, url }: APIContext){
@@ -28,17 +29,12 @@ export async function PUT({ request, params, url }: APIContext){
         //     }
         // }
 
-        let response = await db('updateOne', collection, {filter:{ pick: id }, update:{ "$set": {...content} }});
-        let data = await response.json();
-        if( response.status.toString().startsWith('2') ){            
-            if( data.matchedCount === 0 || data.modifiedCount === 0 ) 
+        let response = await UserPick.updateOne({ pick: id }, { "$set": {...content} });
+        if( response.matchedCount === 0 || response.modifiedCount === 0 ) {
                 return error404();
-            return new Response(null, { status: 201 });
-        }else{
-            return new Response(data, { status: response.status});
         }
-    }
-    catch( err )
+        return new Response(null, { status: 201 });
+    }catch( err )
     {
         return new Response(err, { status: 500 });
     }
@@ -46,7 +42,6 @@ export async function PUT({ request, params, url }: APIContext){
 
 export async function DELETE({ params }: APIContext){
     const { id } = params;
-    let response = await db('deleteOne', collection, {filter:{ pick: id }});
-    let data = await response.json();
-    return data.deletedCount === 0 ? error404( JSON.stringify(data) ) : successJSON( );
+    let response = await UserPick.deleteOne({ pick: id });
+    return response.deletedCount === 0 ? error404( JSON.stringify(response) ) : successJSON( );
 }
