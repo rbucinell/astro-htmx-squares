@@ -32,12 +32,12 @@ let scores = [];
         </div>
   
 
-        <div class="flex flex-row">
-            {[1,2,3,4].map( q =>{
-                let score = scores?.find( s => s.quarter === q );
-                return  <QuarterScoreForm quarter={q} event={selectedEvent} />
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 p-2">
+            {[1,2,3,4].map(q => {
+                return <QuarterScoreForm quarter={q} event={selectedEvent} />
             })}
         </div>
+
 
         <ul class="m-1 mx-auto p-1">
             { picks.map( pick => {
