@@ -1,0 +1,546 @@
+[
+  {
+    "id": "ARI",
+    "name": "Cardinals",
+    "city": "Arizona",
+    "fullName": "Arizona Cardinals",
+    "division": "NFC West",
+    "colors": {
+      "primary": {
+        "background": "#97233F",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#000000",
+        "foreground": "#FFB612"
+      }
+    }
+  },
+  {
+    "id": "ATL",
+    "name": "Falcons",
+    "city": "Atlanta",
+    "fullName": "Atlanta Falcons",
+    "division": "NFC South",
+    "colors": {
+      "primary": {
+        "background": "#A71930",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#000000",
+        "foreground": "#A5ACAF"
+      }
+    }
+  },
+  {
+    "id": "BAL",
+    "name": "Ravens",
+    "city": "Baltimore",
+    "fullName": "Baltimore Ravens",
+    "division": "AFC North",
+    "colors": {
+      "primary": {
+        "background": "#241773",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#000000",
+        "foreground": "#9E7C0C"
+      }
+    }
+  },
+  {
+    "id": "BUF",
+    "name": "Bills",
+    "city": "Buffalo",
+    "fullName": "Buffalo Bills",
+    "division": "AFC East",
+    "colors": {
+      "primary": {
+        "background": "#00338D",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#C60C30",
+        "foreground": "#FFFFFF"
+      }
+    }
+  },
+  {
+    "id": "CAR",
+    "name": "Panthers",
+    "city": "Carolina",
+    "fullName": "Carolina Panthers",
+    "division": "NFC South",
+    "colors": {
+      "primary": {
+        "background": "#0085CA",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#101820",
+        "foreground": "#BFC0BF"
+      }
+    }
+  },
+  {
+    "id": "CHI",
+    "name": "Bears",
+    "city": "Chicago",
+    "fullName": "Chicago Bears",
+    "division": "NFC North",
+    "colors": {
+      "primary": {
+        "background": "#0B162A",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#C83803",
+        "foreground": "#FFFFFF"
+      }
+    }
+  },
+  {
+    "id": "CIN",
+    "name": "Bengals",
+    "city": "Cincinnati",
+    "fullName": "Cincinnati Bengals",
+    "division": "AFC North",
+    "colors": {
+      "primary": {
+        "background": "#FB4F14",
+        "foreground": "#000000"
+      },
+      "secondary": {
+        "background": "#000000",
+        "foreground": "#FFFFFF"
+      }
+    }
+  },
+  {
+    "id": "CLE",
+    "name": "Browns",
+    "city": "Cleveland",
+    "fullName": "Cleveland Browns",
+    "division": "AFC North",
+    "colors": {
+      "primary": {
+        "background": "#311D00",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#FF3C00",
+        "foreground": "#FFFFFF"
+      }
+    }
+  },
+  {
+    "id": "DAL",
+    "name": "Cowboys",
+    "city": "Dallas",
+    "fullName": "Dallas Cowboys",
+    "division": "NFC East",
+    "colors": {
+      "primary": {
+        "background": "#041E42",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#869397",
+        "foreground": "#FFFFFF"
+      }
+    }
+  },
+  {
+    "id": "DEN",
+    "name": "Broncos",
+    "city": "Denver",
+    "fullName": "Denver Broncos",
+    "division": "AFC West",
+    "colors": {
+      "primary": {
+        "background": "#FB4F14",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#002244",
+        "foreground": "#FFFFFF"
+      }
+    }
+  },
+  {
+    "id": "DET",
+    "name": "Lions",
+    "city": "Detroit",
+    "fullName": "Detroit Lions",
+    "division": "NFC North",
+    "colors": {
+      "primary": {
+        "background": "#0076B6",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#B0B7BC",
+        "foreground": "#000000"
+      }
+    }
+  },
+  {
+    "id": "GB",
+    "name": "Packers",
+    "city": "Green Bay",
+    "fullName": "Green Bay Packers",
+    "division": "NFC North",
+    "colors": {
+      "primary": {
+        "background": "#203731",
+        "foreground": "#FFB612"
+      },
+      "secondary": {
+        "background": "#FFB612",
+        "foreground": "#203731"
+      }
+    }
+  },
+  {
+    "id": "HOU",
+    "name": "Texans",
+    "city": "Houston",
+    "fullName": "Houston Texans",
+    "division": "AFC South",
+    "colors": {
+      "primary": {
+        "background": "#03202F",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#A71930",
+        "foreground": "#FFFFFF"
+      }
+    }
+  },
+  {
+    "id": "IND",
+    "name": "Colts",
+    "city": "Indianapolis",
+    "fullName": "Indianapolis Colts",
+    "division": "AFC South",
+    "colors": {
+      "primary": {
+        "background": "#002C5F",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#FFFFFF",
+        "foreground": "#002C5F"
+      }
+    }
+  },
+  {
+    "id": "JAX",
+    "name": "Jaguars",
+    "city": "Jacksonville",
+    "fullName": "Jacksonville Jaguars",
+    "division": "AFC South",
+    "colors": {
+      "primary": {
+        "background": "#006778",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#101820",
+        "foreground": "#D7A22A"
+      }
+    }
+  },
+  {
+    "id": "KC",
+    "name": "Chiefs",
+    "city": "Kansas City",
+    "fullName": "Kansas City Chiefs",
+    "division": "AFC West",
+    "colors": {
+      "primary": {
+        "background": "#E31837",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#FFB81C",
+        "foreground": "#000000"
+      }
+    }
+  },
+  {
+    "id": "LV",
+    "name": "Raiders",
+    "city": "Las Vegas",
+    "fullName": "Las Vegas Raiders",
+    "division": "AFC West",
+    "colors": {
+      "primary": {
+        "background": "#000000",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#A5ACAF",
+        "foreground": "#000000"
+      }
+    }
+  },
+  {
+    "id": "LAC",
+    "name": "Chargers",
+    "city": "Los Angeles",
+    "fullName": "Los Angeles Chargers",
+    "division": "AFC West",
+    "colors": {
+      "primary": {
+        "background": "#0080C6",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#FFC20E",
+        "foreground": "#000000"
+      }
+    }
+  },
+  {
+    "id": "LAR",
+    "name": "Rams",
+    "city": "Los Angeles",
+    "fullName": "Los Angeles Rams",
+    "division": "NFC West",
+    "colors": {
+      "primary": {
+        "background": "#003594",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#FFA300",
+        "foreground": "#000000"
+      }
+    }
+  },
+  {
+    "id": "MIA",
+    "name": "Dolphins",
+    "city": "Miami",
+    "fullName": "Miami Dolphins",
+    "division": "AFC East",
+    "colors": {
+      "primary": {
+        "background": "#008E97",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#FC4C02",
+        "foreground": "#FFFFFF"
+      }
+    }
+  },
+  {
+    "id": "MIN",
+    "name": "Vikings",
+    "city": "Minnesota",
+    "fullName": "Minnesota Vikings",
+    "division": "NFC North",
+    "colors": {
+      "primary": {
+        "background": "#4F2683",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#FFC62F",
+        "foreground": "#000000"
+      }
+    }
+  },
+  {
+    "id": "NE",
+    "name": "Patriots",
+    "city": "New England",
+    "fullName": "New England Patriots",
+    "division": "AFC East",
+    "colors": {
+      "primary": {
+        "background": "#002244",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#C60C30",
+        "foreground": "#FFFFFF"
+      }
+    }
+  },
+  {
+    "id": "NO",
+    "name": "Saints",
+    "city": "New Orleans",
+    "fullName": "New Orleans Saints",
+    "division": "NFC South",
+    "colors": {
+      "primary": {
+        "background": "#D3BC8D",
+        "foreground": "#101820"
+      },
+      "secondary": {
+        "background": "#101820",
+        "foreground": "#D3BC8D"
+      }
+    }
+  },
+  {
+    "id": "NYG",
+    "name": "Giants",
+    "city": "New York",
+    "fullName": "New York Giants",
+    "division": "NFC East",
+    "colors": {
+      "primary": {
+        "background": "#0B2265",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#A71930",
+        "foreground": "#FFFFFF"
+      }
+    }
+  },
+  {
+    "id": "NYJ",
+    "name": "Jets",
+    "city": "New York",
+    "fullName": "New York Jets",
+    "division": "AFC East",
+    "colors": {
+      "primary": {
+        "background": "#125740",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#000000",
+        "foreground": "#FFFFFF"
+      }
+    }
+  },
+  {
+    "id": "PHI",
+    "name": "Eagles",
+    "city": "Philadelphia",
+    "fullName": "Philadelphia Eagles",
+    "division": "NFC East",
+    "colors": {
+      "primary": {
+        "background": "#004C54",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#A5ACAF",
+        "foreground": "#000000"
+      }
+    }
+  },
+  {
+    "id": "PIT",
+    "name": "Steelers",
+    "city": "Pittsburgh",
+    "fullName": "Pittsburgh Steelers",
+    "division": "AFC North",
+    "colors": {
+      "primary": {
+        "background": "#FFB612",
+        "foreground": "#101820"
+      },
+      "secondary": {
+        "background": "#101820",
+        "foreground": "#FFFFFF"
+      }
+    }
+  },
+  {
+    "id": "SF",
+    "name": "49ers",
+    "city": "San Francisco",
+    "fullName": "San Francisco 49ers",
+    "division": "NFC West",
+    "colors": {
+      "primary": {
+        "background": "#AA0000",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#B3995D",
+        "foreground": "#000000"
+      }
+    }
+  },
+  {
+    "id": "SEA",
+    "name": "Seahawks",
+    "city": "Seattle",
+    "fullName": "Seattle Seahawks",
+    "division": "NFC West",
+    "colors": {
+      "primary": {
+        "background": "#002244",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#69BE28",
+        "foreground": "#000000"
+      }
+    }
+  },
+  {
+    "id": "TB",
+    "name": "Buccaneers",
+    "city": "Tampa Bay",
+    "fullName": "Tampa Bay Buccaneers",
+    "division": "NFC South",
+    "colors": {
+      "primary": {
+        "background": "#D50A0A",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#34302B",
+        "foreground": "#FF7900"
+      }
+    }
+  },
+  {
+    "id": "TEN",
+    "name": "Titans",
+    "city": "Tennessee",
+    "fullName": "Tennessee Titans",
+    "division": "AFC South",
+    "colors": {
+      "primary": {
+        "background": "#0C2340",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#418FDE",
+        "foreground": "#FFFFFF"
+      }
+    }
+  },
+  {
+    "id": "WAS",
+    "name": "Commanders",
+    "city": "Washington",
+    "fullName": "Washington Commanders",
+    "division": "NFC East",
+    "colors": {
+      "primary": {
+        "background": "#5A1414",
+        "foreground": "#FFFFFF"
+      },
+      "secondary": {
+        "background": "#FFB612",
+        "foreground": "#5A1414"
+      }
+    }
+  }
+]

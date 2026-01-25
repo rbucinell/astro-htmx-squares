@@ -14,10 +14,7 @@ export async function PUT({ request, params, url }: APIContext){
         const { pick } = params;
         const eventId = url.searchParams.get('eventId');
         const paid = url.searchParams.get('paid');
-        
-        console.log('Pick:', pick);
-        console.log('EventId:', eventId);
-        
+
         // Check if pick and eventId exist
         if (!pick || !eventId) {
             return new Response('Missing pick or eventId', { status: 400 });
@@ -25,7 +22,6 @@ export async function PUT({ request, params, url }: APIContext){
         
         // First, check if the document exists
         const existing = await UserPick.findOne({ pick, event: eventId });
-        console.log('Existing document:', existing);
         
         if (!existing) {
             return new Response('Document not found', { status: 404 });
@@ -35,8 +31,6 @@ export async function PUT({ request, params, url }: APIContext){
             { pick: pick, event: eventId }, 
             { "$set": { paid} }
         );
-        
-        console.log('PUT response:', response);
         
         if (response.matchedCount === 0 || response.modifiedCount === 0) {
             return new Response('No documents updated', { status: 404 });

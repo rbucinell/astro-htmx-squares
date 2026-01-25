@@ -1,8 +1,5 @@
 ---
-import type { IFootballEvent } from "@models/events";
-import FootballEvent from "@models/events";
 const { quarter, event } = Astro.props;
-console.log( event );
 ---
 <div id={`q${quarter}-score-form`} class="border border-gray-500 border-b-4 pb-2 flex flex-col rounded-lg shadow-sm bg-white">
     <form class="flex flex-col h-full">
