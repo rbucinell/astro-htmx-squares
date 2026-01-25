@@ -6,7 +6,7 @@ import { SquareState } from "@components/Square.astro";
 import PurchaseModal from './PurchaseModal.astro';
 import { getWinners } from 'src/lib/scores';
 import { GET as GetPicks } from '@api/picks/index.ts';
-import FootballEvent, {type IFootballEvent } from "@models/events";
+import {type IFootballEvent } from "@models/events";
 import nflteams from 'src/data/nflteams.json';
 
 //https://logotyp.us/logo/nfl/
@@ -36,7 +36,7 @@ const nfciconstring = `${nfc.city.replaceAll(' ','_')}_${nfc.name.replaceAll(' '
 import NFCLogo from '../icons/National_Football_Conference_logo - Copy.svg?raw';
 import AFCLogo from '../icons/American_Football_Conference_logo.svg?raw';
 
-const icons = import.meta.glob('../icons/nfl_teams/*.svg', { as: 'raw', eager: true });
+const icons = import.meta.glob('../icons/nfl_teams/*.svg', { query: '?raw', import: 'default', eager: true });
 
 const afcIcon = icons[`../icons/nfl_teams/${afciconstring}_logo.svg`] || AFCLogo;
 const nfcIcon = icons[`../icons/nfl_teams/${nfciconstring}_logo.svg`] || NFCLogo;
