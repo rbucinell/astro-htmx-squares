@@ -41,10 +41,6 @@ const icons = import.meta.glob('../icons/nfl_teams/*.svg', { query: '?raw', impo
 const afcIcon = icons[`../icons/nfl_teams/${afciconstring}_logo.svg`] || AFCLogo;
 const nfcIcon = icons[`../icons/nfl_teams/${nfciconstring}_logo.svg`] || NFCLogo;
 
-console.log( afc, afcIcon );
-
-
-
 const CSS_COLOR_NAMES = ["Indigo", "DarkOrange", "AntiqueWhite", "Ivory", "DarkRed", "Aqua", "RoyalBlue", "DarkSalmon", "SaddleBrown", "LawnGreen", "Salmon", "MidnightBlue", "Black", "LightBlue", "SeaGreen", "DeepPink", "Silver", "DodgerBlue", "Olive", "FireBrick", "Orange", "OrangeRed", "Tan", "Crimson", "GhostWhite", "Gold", "Tomato", "DarkBlue", "Magenta", "Maroon", "MediumAquaMarine", "PeachPuff", "Wheat", "WhiteSmoke", "DarkKhaki", "Yellow", "PowderBlue", "MediumBlue", "PapayaWhip", "Gainsboro", "Lime", "Gray", "PaleVioletRed", "Teal", "Coral", "White", "Blue", "MistyRose", "Black"];
 const ROWS = 'ABCDEFGHIJ'.split('');
 const COLS = [...Array(10).keys()];
