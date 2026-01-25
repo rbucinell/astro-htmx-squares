@@ -24,7 +24,7 @@ async function randomOrgSequence( division:string, quater:number ): Promise<Arra
     return data.trim().split('\t').map( _ => parseInt(_));
 }
 
-export async function GET() {
+export async function GET(context) {
 
     let sequences = {
         afc: { 
@@ -39,7 +39,7 @@ export async function GET() {
             q4: ['#','#','#','#','#','#','#','#','#','#'] }
     };
 
-    const pickTotal = (await (await GetPicks()).json() ).length;
+    const pickTotal = (await (await GetPicks(context)).json() ).length;
 
     if( (new Date() > kickoff) || pickTotal === 100)
     {

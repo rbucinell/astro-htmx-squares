@@ -94,6 +94,7 @@ const { price } = Astro.props;
   }
 
   async function reserveSquares() {
+    const eventId = new URLSearchParams(window.location.search).get('eventId');
     const payLaterButton = document.querySelector('#payLaterButton');
     const closeButton = document.querySelector('#closeButton');
     const submitButton = document.querySelector('#reserveButton');    
@@ -113,7 +114,8 @@ const { price } = Astro.props;
         body: JSON.stringify({
           name: form.querySelector('#name').value,
           email: form.querySelector('#email').value,
-          picks: clickedSquares.map( p => p.id )
+          picks: clickedSquares.map( p => p.id ),
+          event: eventId
         })
       });
       hasReserved = true;

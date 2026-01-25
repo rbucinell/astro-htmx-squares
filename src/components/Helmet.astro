@@ -1,7 +1,18 @@
 ---
 import HelmetSVG from '../icons/helmet.svg?raw';
+//import HelmetSVG from '../icons/nfl_teams/Arizona_Cardinals_logo.svg?raw';
 
 const {id, color='gray' } = Astro.props;
 const ColoredHelmet = HelmetSVG.replaceAll(`class="helmetColor"`,`fill="${color}" fill-opacity="0.7"`);
 ---
-<Fragment id={`helmet${id}`} set:html={ColoredHelmet}/>
+    <Fragment id={`helmet${id}`} set:html={ColoredHelmet}/>
+<!-- <div class="block w-1 h-5">
+    <Fragment id={`helmet${id}`} set:html={ColoredHelmet}/>
+</div> -->
+
+<!-- <style>
+    svg {
+        width: 100%;
+        height: auto;
+    }
+</style> -->

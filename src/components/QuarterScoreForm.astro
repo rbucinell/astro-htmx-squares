@@ -1,0 +1,29 @@
+---
+import type { IFootballEvent } from "@models/events";
+import FootballEvent from "@models/events";
+const { quarter, event } = Astro.props;
+console.log( event );
+---
+<div id={`q${quarter}-score-form`} class="w-1/4 border border-gray-500 border-b-4 pb-1 flex b-1 flex-col">
+    <form >
+        <div class="flex border border-black p-1 bg-gray-300 justify-center">{`Q${quarter}`}</div>
+        <div class:list={["grow bg-nfc-primary flex justify-evenly",`scores${quarter}`]}>
+            <span>NFC</span>
+            <input type="number" min="0" class="w-[40%] border rouneded-sm bg-nfc-primary border-black px-2" name="nfc" value={event?.nfc.scores[quarter-1]} />
+        </div>
+        <div class:list={["grow bg-afc-primary flex justify-evenly",`scores${quarter}`]}>
+            <span>AFC</span>
+            <input type="number" min="0" class="w-[40%] border rouneded-sm bg-afc-primary border-black px-2" name="afc" value={event?.afc.scores[quarter-1]} />
+        </div>
+        <button id={`q${quarter}-score-form`} class="border border-blue-800 bg-blue-200 hover:bg-blue-600  rounded-md m-1 p-1"
+            type="submit"
+            hx-put={`api/scores/${quarter}?eventId=${event._id}`}
+            hx-include="closest form">Set Score
+        </button>
+    </form>
+    <script is:inline>
+        document.body.addEventListener('htmx:afterRequest', (evt) => {
+            window.location.reload();
+        });
+    </script>
+</div>

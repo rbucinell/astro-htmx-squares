@@ -1,22 +1,23 @@
 ---
+import type { IFootballEvent } from "@models/events";
 import ScoreCard from "./ScoreCard.astro";
+import { getWinners } from "@lib/scores";
+import { GET as GetPicks } from '@api/picks/index.ts';
 
 interface Props {
-  picks: Array<any>,
-  price: number,
-  scores: Array<any>,
-  payouts: Array<number>
+  event: IFootballEvent
 }
 
-let { picks, price, scores, payouts } = Astro.props;
-const purchased = picks?.filter( p => p.paid).length;
+let { event } = Astro.props;
 
-payouts = payouts.map( (payout:number) => (payout * ( purchased * price )) );
+Astro.url.searchParams.append('event', event._id.toString() || '');
+const picks = (await (await GetPicks(Astro)).json()) || [];
+const purchased = picks?.filter( p => p.paid).length;
+let currentPayouts = event.squares.payouts.map( (payout:number) => (payout * ( purchased * event.squares.price )) );
+let winners = getWinners( event );
 ---
 <div class="container min-w-[500px] flex flex-row flex-auto max-w-[900px] justify-items-center">
-  { payouts.map( (payout,i) =>  {
-    let score = scores?.find( s => s.quarter === i+1 );
-    let pick = picks?.find( p => p.won === i+1 )
-    return <ScoreCard q={i+1} payout={ payout } afc={score?.afc} nfc={score?.nfc} winner={pick} /> 
+  { currentPayouts.map( (payout,i) =>  {
+    return <ScoreCard q={i+1} payout={payout} afc={event.afc.scores[i]} nfc={event.nfc.scores[i]} winner={picks.find( p => winners[i] === p?.pick )} />
   })}
 </div>

@@ -6,6 +6,7 @@ export interface IUserPick {
     pick: string;
     paid: boolean;
     submitted: Date;
+    event: Types.ObjectId;
 }
 
 const pickSchema = new Schema<IUserPick>({
@@ -14,6 +15,7 @@ const pickSchema = new Schema<IUserPick>({
     pick: { type: String },
     paid: { type: Boolean },
     submitted: { type: Schema.Types.Date },
+    event: { type: Schema.Types.ObjectId, ref: 'FootballEvent' }
 },{
     collection: 'picks'
 });

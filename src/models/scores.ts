@@ -5,6 +5,7 @@ export interface IScore extends Document {
     quarter: number;
     nfc: number;
     afc: number;
+    event: Types.ObjectId;
 }
 
 const scoreSchema = new Schema<IScore>({
@@ -12,6 +13,7 @@ const scoreSchema = new Schema<IScore>({
     quarter: { type: Number },
     nfc: { type: Number },
     afc: { type: Number },
+    event: { type: Schema.Types.ObjectId, ref: 'FootballEvent' }
 },{
     collection: 'scores'
 });
