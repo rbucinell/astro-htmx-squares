@@ -14,10 +14,12 @@ const stateClasses = [
 export interface Pick {
   email:string,
   display:string,
-  paid:boolean,
   pick:string,
+  paid:boolean
   won?:number,
   color?:string,
+  submitted?:string,
+  event:string
 }
 
 interface Props {
@@ -26,10 +28,15 @@ interface Props {
   state?: SquareState,
   pick?: Pick,
 }
-const { row, col, state=SquareState.OPEN, pick } = Astro.props;
+const { row, col, pick } = Astro.props;
+let state = SquareState.OPEN;
+if( pick ) {
+  state = pick.paid ? SquareState.BOOKED : SquareState.RESERVED;
+}
 const id = `${row}${col}`;
 const hashCode = s => s.split('').reduce((a,b) => (((a << 5) - a) + b.charCodeAt(0))|0, 0)
-const hash = 's'+hashCode(`${pick?.email}`)
+const hash = 's'+hashCode(`${pick?.email}`);
+console.log( `Square ${id} has hash ${hash}` );
 ---
 <style is:global>
   .hoverAll{

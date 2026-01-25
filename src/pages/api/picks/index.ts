@@ -30,17 +30,18 @@ export async function GET( { request, params, url }: APIContext): Promise<Respon
 
 export async function POST( {request}: APIContext ) {
     let content = await request.json();
-
+    console.log( content );
     if( !content.email || !content.name || !content.picks || content.picks.length === 0){
         return errorResponse(400, null);
     }
     else{
         let submissions = [];
         for( let pick of content.picks){
-            let { name, email, event } = content;
+            let { name, email, event, color } = content;
             let single = { display:name, email, pick, paid:false, submitted: new Date(), event: new Types.ObjectId(event) };
 
             if( !await recordExists( single ) ){
+                single['color'] = color;
                 const response = await UserPick.create( single );
                 if( response.status === 201 ){
                     submissions.push({...single, success: true});

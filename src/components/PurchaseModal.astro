@@ -5,6 +5,11 @@ const invalid = "invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500"
 const validationError = "mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block";
 
 const { price } = Astro.props;
+
+function randomizeColor() {
+        const newColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+        return newColor;
+    }
 ---
 <div id="dialog" onclick="hideDialog()" class="fixed left-0 top-0 bg-black bg-opacity-50 w-screen h-screen max-sm:w-full max-sm:h-full justify-center items-center opacity-0 hidden transition-opacity duration-500">
   <div id="modal" class="bg-white rounded shaodw-md w-[40%] max-sm:w-[80%] flex flex-col gap-5">
@@ -37,7 +42,17 @@ const { price } = Astro.props;
           <span class={validationError}> Please enter a longer name (min 3 characters)</span>
         </label>
         <input type="hidden" id="price" name="price" value={price}>
+        
+
+        <label class="mb-3" for="color">
+          <span class={label}>Helmet Color</span>
+          <input 
+              id="color" name="color" type="color" value={randomizeColor()} class="w-full h-12 rounded border border-gray-500 cursor-pointer"
+            >
+        </label>
+
         <p>You're squares will be marked as resevered, until I receive payment.</p>
+
       </div>
 
     </div>
@@ -102,6 +117,7 @@ const { price } = Astro.props;
     const payPalButton = document.querySelector('#payPalButton');
     const spinner = document.querySelector('#spinnerIcon');
     const form = document.querySelector('#reseveForm');
+    const colorInput = document.querySelector('#color');
 
     let pickCount = clickedSquares.length;
     if( form.checkValidity() ){
@@ -114,6 +130,7 @@ const { price } = Astro.props;
         body: JSON.stringify({
           name: form.querySelector('#name').value,
           email: form.querySelector('#email').value,
+          color: colorInput.value,
           picks: clickedSquares.map( p => p.id ),
           event: eventId
         })

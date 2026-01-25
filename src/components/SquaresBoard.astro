@@ -15,8 +15,6 @@ const footballEvent: IFootballEvent = Astro.props.event;
 
 Astro.url.searchParams.append('event', footballEvent._id.toString() || '');
 
-const picksResponse = await GetPicks(Astro);
-const picksJson = await picksResponse.json();
 const picks = (await (await GetPicks(Astro)).json()) || [];
 
 const CSS_COLOR_NAMES = ["Indigo", "DarkOrange", "AntiqueWhite", "Ivory", "DarkRed", "Aqua", "RoyalBlue", "DarkSalmon", "SaddleBrown", "LawnGreen", "Salmon", "MidnightBlue", "Black", "LightBlue", "SeaGreen", "DeepPink", "Silver", "DodgerBlue", "Olive", "FireBrick", "Orange", "OrangeRed", "Tan", "Crimson", "GhostWhite", "Gold", "Tomato", "DarkBlue", "Magenta", "Maroon", "MediumAquaMarine", "PeachPuff", "Wheat", "WhiteSmoke", "DarkKhaki", "Yellow", "PowderBlue", "MediumBlue", "PapayaWhip", "Gainsboro", "Lime", "Gray", "PaleVioletRed", "Teal", "Coral", "White", "Blue", "MistyRose", "Black"];
@@ -27,10 +25,12 @@ const Qs = [1,2,3,4];
 let c = 0;
 let colormap = new Map();
 for( let pick of picks ){
-  if( !colormap.has(pick.email) ){
-    colormap.set(pick.email,CSS_COLOR_NAMES[ (c++) % CSS_COLOR_NAMES.length]);
+  if( !pick.color ){
+    if( !colormap.has(pick.email) ){
+      colormap.set(pick.email,CSS_COLOR_NAMES[ (c++) % CSS_COLOR_NAMES.length]);
+    }
+    pick.color = colormap.get(pick.email);
   }
-  pick.color = colormap.get(pick.email);
 }
 
 let winners = getWinners( footballEvent );
@@ -94,10 +94,7 @@ for( let [i,winner] of winners.entries() ){
             {COLS.map( col =>{
               let state = SquareState.OPEN;
               let pick = picks?.find( doc => doc.pick === `${row}${col}`);
-              if( pick ) {
-                state = pick.paid ? SquareState.BOOKED : SquareState.RESERVED;
-              }
-              return <Square row={row} col={col} state={state} pick={pick} />
+              return <Square row={row} col={col} pick={pick} />
             })}
           </tr>
         })}
