@@ -1,0 +1,43 @@
+---
+const { quarter, event } = Astro.props;
+---
+<div id={`q${quarter}-score-form`} class="border border-gray-500 border-b-4 pb-2 flex flex-col rounded-lg shadow-sm bg-white">
+    <form class="flex flex-col h-full">
+        <div class="flex border border-black p-2 bg-gray-300 justify-center font-bold text-lg rounded-t-lg">
+            {`Q${quarter}`}
+        </div>
+        <div class:list={["flex flex-col sm:flex-row items-center justify-between p-2 gap-2 bg-nfc-primary", `scores${quarter}`]}>
+            <span class="font-semibold min-w-[3rem]">NFC</span>
+            <input 
+                type="number" 
+                min="0" 
+                class="w-full sm:w-20 border rounded-md bg-nfc-primary border-black px-3 py-2 text-center text-lg" 
+                name="nfc" 
+                value={event?.nfc.scores[quarter-1]} 
+            />
+        </div>
+        <div class:list={["flex flex-col sm:flex-row items-center justify-between p-2 gap-2 bg-afc-primary", `scores${quarter}`]}>
+            <span class="font-semibold min-w-[3rem]">AFC</span>
+            <input 
+                type="number" 
+                min="0" 
+                class="w-full sm:w-20 border rounded-md bg-afc-primary border-black px-3 py-2 text-center text-lg" 
+                name="afc" 
+                value={event?.afc.scores[quarter-1]} 
+            />
+        </div>
+        <button 
+            class="border-2 border-blue-800 bg-blue-200 hover:bg-blue-600 active:bg-blue-700 rounded-md m-2 p-3 font-semibold transition-colors touch-manipulation"
+            type="submit"
+            hx-put={`api/scores/${quarter}?eventId=${event._id}`}
+            hx-include="closest form"
+        >
+            Set Score
+        </button>
+    </form>
+    <script is:inline>
+        document.body.addEventListener('htmx:afterRequest', (evt) => {
+            window.location.reload();
+        });
+    </script>
+</div>

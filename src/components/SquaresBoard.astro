@@ -2,32 +2,60 @@
 import '../styles/squares.css';
 import PurchaseSquaresAddon from "@components/PurchaseSquaresAddon.astro";
 import Square from "@components/Square.astro";
-import {SquareState} from "@components/Square.astro";
+import { SquareState } from "@components/Square.astro";
 import PurchaseModal from './PurchaseModal.astro';
-import { Icon } from 'astro-icon/components';
 import { getWinners } from 'src/lib/scores';
+import { GET as GetPicks } from '@api/picks/index.ts';
+import {type IFootballEvent } from "@models/events";
+import nflteams from 'src/data/nflteams.json';
+import ScoreBoard from "@components/ScoreBoard.astro";
 
-//https://logotyp.us/logo/nfl/
+import NFCLogo from '../icons/National_Football_Conference_logo - Copy.svg?raw';
+import AFCLogo from '../icons/American_Football_Conference_logo.svg?raw';
+const icons = import.meta.glob('../icons/nfl_teams/*.svg', { query: '?raw', import: 'default', eager: true });
 
+const footballEvent: IFootballEvent = Astro.props.event;
+Astro.url.searchParams.append('event', footballEvent._id.toString() || '');
+const picks = (await (await GetPicks(Astro)).json()) || [];
+
+const UnidentifiedTeam = {
+  id: 'TBD',
+  name: 'TBD',
+  city: 'TBD',
+  fullName: 'TBD',
+  division: 'TBD',
+  colors: {
+    primary: { background: '#CCC', foreground: '#000000' },
+    secondary: { background: '#CCC', foreground: '#000000' }
+  }
+}
+
+const afc = nflteams.find( team => team.id === footballEvent.afc.name ) || UnidentifiedTeam;
+const nfc = nflteams.find( team => team.id === footballEvent.nfc.name ) || UnidentifiedTeam;
+
+const afciconstring = `${afc.city.replaceAll(' ','_')}_${afc.name.replaceAll(' ','_')}`;
+const nfciconstring = `${nfc.city.replaceAll(' ','_')}_${nfc.name.replaceAll(' ','_')}`;
+
+const afcIcon = icons[`../icons/nfl_teams/${afciconstring}_logo.svg`] || AFCLogo;
+const nfcIcon = icons[`../icons/nfl_teams/${nfciconstring}_logo.svg`] || NFCLogo;
 
 const CSS_COLOR_NAMES = ["Indigo", "DarkOrange", "AntiqueWhite", "Ivory", "DarkRed", "Aqua", "RoyalBlue", "DarkSalmon", "SaddleBrown", "LawnGreen", "Salmon", "MidnightBlue", "Black", "LightBlue", "SeaGreen", "DeepPink", "Silver", "DodgerBlue", "Olive", "FireBrick", "Orange", "OrangeRed", "Tan", "Crimson", "GhostWhite", "Gold", "Tomato", "DarkBlue", "Magenta", "Maroon", "MediumAquaMarine", "PeachPuff", "Wheat", "WhiteSmoke", "DarkKhaki", "Yellow", "PowderBlue", "MediumBlue", "PapayaWhip", "Gainsboro", "Lime", "Gray", "PaleVioletRed", "Teal", "Coral", "White", "Blue", "MistyRose", "Black"];
 const ROWS = 'ABCDEFGHIJ'.split('');
 const COLS = [...Array(10).keys()];
 const Qs = [1,2,3,4];
 
-let { price, picks, sequences, scores } = Astro.props;
-
 let c = 0;
 let colormap = new Map();
 for( let pick of picks ){
-  if( !colormap.has(pick.email) ){
-    colormap.set(pick.email,CSS_COLOR_NAMES[ (c++) % CSS_COLOR_NAMES.length]);
+  if( !pick.color ){
+    if( !colormap.has(pick.email) ){
+      colormap.set(pick.email,CSS_COLOR_NAMES[ (c++) % CSS_COLOR_NAMES.length]);
+    }
+    pick.color = colormap.get(pick.email);
   }
-  pick.color = colormap.get(pick.email);
 }
 
-let winners = getWinners( scores, sequences );
-
+let winners = getWinners( footballEvent );
 for( let [i,winner] of winners.entries() ){
   if( winner ) {
     let pick = picks.find( p => p.pick === winner );
@@ -36,43 +64,48 @@ for( let [i,winner] of winners.entries() ){
     }
   }
 }
-
 ---
-<PurchaseSquaresAddon price={price} />
-<div class="board-grid center text-center border border-solid border-gray-500 max-sm:border-l-afc-primary max-sm:border-l-2 max-sm max-sm:border-t-2 max-sm:border-t-nfc-primary"> 
+<PurchaseSquaresAddon price={footballEvent.squares.price} eventId={footballEvent._id} />
+<div class:list={[
+  `max-sm:border-l-[${afc?.colors.primary.background}]`, 
+  `max-sm:border-t-[${nfc?.colors.primary.background}]`,
+  "board-grid center text-center border border-solid border-gray-500 max-sm:border-l-2 max-sm max-sm:border-t-2 "]}> 
 
   <div id="logo" class="bg-nfl-white border-0">
-    <img class="h-full max-h-full max-w-full justify-center" src="img/nfl-shield.svg">
-    
+    <img class="h-full max-h-full max-w-full justify-center" src="img/nfl-shield.svg">  
   </div>
 
   <!--Corners -->
   {Qs.map( q => <div class:list={["qFont",`q${q}`,"text-lg font-bold leading-normal text-left py-1"]} id={`chq${q}`}>Q{q}</div> )}
   
   <!-- NFC Headers -->
-  <div id="champNFC" class="overflow-hidden flex justify-center bg-nfc-primary bg-center bg-no-repeat bg-cover border border-solid border-gray-500">
-    <img class="w-full" src="img/nfc-rep-logo.svg" />
+  <div id="champNFC" style={`background:${nfc?.colors.primary.background}`} class="overflow-hidden flex justify-center bg-center bg-no-repeat bg-cover border border-solid border-gray-500">
+    <!-- <img class="w-full" src="img/nfc-rep-logo.svg" /> -->
+     <Fragment id={`helmet${nfc.id}`} set:html={nfcIcon}/>
   </div>
   {Qs.map( q => { 
     return <div class:list={["text-lg font-bold leading-normal",`q${q}`]} id={`nfchq${q}`}>
       <table class="size-full border-l border-solid border-gray-500">
         <tbody>
-          <tr id={`nfchq${q}-numbers`}>{COLS.map( c=> <td id={`nfc-h-q${q}-${c}`} class="max-sm:text-sm">{sequences.nfc[`q${q}`][c]}</td>)}</tr>
+          <tr id={`nfchq${q}-numbers`}>
+            {COLS.map( c => <td id={`nfc-h-q${q}-${c}`} class="max-sm:text-sm">{footballEvent.nfc.sequences[q-1][c]}</td>)}
+          </tr>
         </tbody>
       </table>
     </div>
   })}
   
   <!-- AFC Headers -->
-  <div id="champAFC" class="overflow-hidden text-lg font-bold leading-normal flex flex-col justify-center 
-    bg-afc-primary bg-center bg-no-repeat bg-cover border border-solid border-gray-500" >
-    <img class="w-full" src="img/afc-rep-logo.svg">
+  <div id="champAFC" style={`background:${afc?.colors.primary.background}`} class:list={[
+    "overflow-hidden text-lg font-bold leading-normal flex flex-col justify-center bg-center bg-no-repeat bg-cover border border-solid border-gray-500"]} >
+    <!-- <img class="w-full" src={ afcIcon}> -->
+     <Fragment id={`helmet${afc.id}`} set:html={afcIcon}/>
   </div>
   {Qs.map( q => { 
     return <div class:list={["column font-bold header",`q${q}`]} id={`afchq${q}`}>
       <table class="size-full border-t border-solid border-gray-500">
         <tbody>
-          {ROWS.map( (r,i)=><tr><td id={`afc-h-q${q}-${r}`} class="max-sm:text-sm" >{sequences.afc[`q${q}`][i]}</td></tr>)}
+          {ROWS.map( (r,i)=><tr><td id={`afc-h-q${q}-${r}`} class="max-sm:text-sm" >{footballEvent.afc.sequences[q-1][i]}</td></tr>)}
         </tbody>
       </table>
     </div>
@@ -80,17 +113,17 @@ for( let [i,winner] of winners.entries() ){
 
   <!--Main Grid -->
   <div id="gridsquares">
-    <table class="size-full max-sm:border-l-afc-primary max-sm:border-l-2 max-sm max-sm:border-t-2 max-sm:border-t-nfc-primary">
+    <table class:list={[
+      `max-sm:border-l-[${afc?.colors.primary.background}]`,
+      `max-sm:border-t-[${nfc?.colors.primary.background}]`,
+      "size-full max-sm:border-l-2 max-sm max-sm:border-t-2"]}>
       <tbody>
         {ROWS.map(row=>{
           return <tr>
             {COLS.map( col =>{
               let state = SquareState.OPEN;
               let pick = picks?.find( doc => doc.pick === `${row}${col}`);
-              if( pick ) {
-                state = pick.paid ? SquareState.BOOKED : SquareState.RESERVED;
-              }
-              return <Square row={row} col={col} state={state} pick={pick} />
+              return <Square row={row} col={col} pick={pick} />
             })}
           </tr>
         })}
@@ -98,5 +131,6 @@ for( let [i,winner] of winners.entries() ){
     </table>
   </div>
 </div>
-<PurchaseModal price={price} />
+<ScoreBoard event={footballEvent} />
+<PurchaseModal price={footballEvent.squares.price} eventId={footballEvent._id} />
 

@@ -1,0 +1,18 @@
+---
+---
+<div class="mb-4 flex flex-row gap-2">
+      <label for="event-select" class="block text-sm font-medium my-auto mb-2">
+        Select Event:
+      </label>
+      <select 
+        id="event-select" 
+        class="px-4 py-2 border rounded-md"
+        onchange="window.location.href = '?eventId=' + this.value"
+      >
+        {events.map(event => (
+          <option  value={event._id.toString()} selected={event._id.toString() === selectedEventId}>
+            {event.name} - {event.season}
+          </option>
+        ))}
+      </select>
+    </div>

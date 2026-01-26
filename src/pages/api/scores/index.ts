@@ -1,17 +1,19 @@
 import type { APIContext } from "astro";
-import {db} from "src/lib/mongodb";
+import connectDB from "src/lib/mongodb";
 import { successJSON, errorResponse, error404 } from '../../../lib/response';
+import mongoose from "mongoose";
+import Score, { type IScore } from "src/models/scores";
 const collection = 'scores'
 
 export async function GET({ url, request }: APIContext){
+    await connectDB();
     const year = url.searchParams.get('year') || (new Date().getFullYear());
-    const response = await db('find', collection );
-    //const response = await db('find', collection, { limit: 50, filter: {year} } );
-    const data = await response.json();
-    if( data.length === 0 ){
+
+    const response:IScore[] = await Score.find().lean();
+    if( response.length === 0 ){
         return error404();
     }
-    return successJSON( data );
+    return successJSON( response );
 }
 
 

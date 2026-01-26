@@ -20,10 +20,10 @@ const { q, payout, afc, nfc, winner } = Astro.props;
         </div>
         <div class="flex flex-row justify-around">
             <div class="bg-afc-primary border-afc-primary text-nfl-white font-bold h-12 w-full flex justify-center items-center line-h" id={`q${q}afc`}>
-                <span class="drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{afc || '--'}</span>
+                <span class="drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{afc !== null ? afc : '--'}</span>
             </div>
             <div class="bg-nfc-primary border-nfc-primary text-nfl-white font-bold h-12 w-full flex justify-center items-center line-h" id={`q${q}nfc`}>
-                <span class="drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{nfc || '--'}</span>
+                <span class="drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">{nfc !== null ? nfc : '--'}</span>
             </div>
         </div>
         <div class:list={["w-full items-center h-full", `q${q}win`]}>

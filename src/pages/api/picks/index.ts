@@ -1,33 +1,53 @@
 import type { APIContext } from "astro";
-import {db} from "src/lib/mongodb";
-import { successJSON, errorResponse, error404 } from '../../../lib/response';
-const collection = 'picks'
+import connectDB from '@lib/mongodb';
+import { successJSON, errorResponse, error404 } from '@lib/response';
+import UserPick, { type IUserPick } from "@models/picks";
+import FootballEvent, { type IFootballEvent } from "@models/events";
+import { Types } from "mongoose";
 
-export async function GET(){
-    const response = await db('find', collection );
-    const data = await response.json();
+export async function GET( { request, params, url }: APIContext): Promise<Response> {
+    await connectDB();
+    let eventId = undefined;
+    if(url.searchParams.has('event')){
+        eventId = url.searchParams.get('event');
+    }else if( url.searchParams.has('season') ){
+        let event:IFootballEvent = await FootballEvent.findOne({ season: parseInt( url.searchParams.get('season'))} as any );
+        if( event ){
+            eventId = event._id.toString();
+        }else{
+            return errorResponse(400, JSON.stringify({ "msg": "No event found for season"}) );
+        }
+    }
+
+    eventId = eventId ?? await FootballEvent.findOne().sort({date:-1}).then( (ev) => ev?._id.toString() );
+    console.log('eventId', eventId);
+
+    if( !eventId) {
+        return errorResponse(400, JSON.stringify({ "msg": "FootballEvent or Season parameter required" }) );
+    }
+    const data:IUserPick[] = await UserPick.find({event: new Types.ObjectId(eventId)} as any );
     if( data.length === 0 ){
-        return error404();
+        return successJSON(data);
     }
     return successJSON( data );
 }
 
 export async function POST( {request}: APIContext ) {
     let content = await request.json();
-
     if( !content.email || !content.name || !content.picks || content.picks.length === 0){
         return errorResponse(400, null);
     }
     else{
         let submissions = [];
         for( let pick of content.picks){
-            let { name, email } = content;
-            let single = { display:name, email, pick, paid:false, submitted: new Date()};
+            let { name, email, event, color } = content;
+            let eventId = event ?? await FootballEvent.findOne().sort({date:-1}).then( (ev) => ev?._id.toString() );
+            console.log('event', event, 'new event', new Types.ObjectId(event));
+            let single = { display:name, email, pick, paid:false, submitted: new Date(), event: new Types.ObjectId(event) };
 
             if( !await recordExists( single ) ){
-                let response = await db('insertOne', collection, {
-                    document: single
-                } );
+                single['color'] = color;
+                const response = await UserPick.create( single );
                 if( response.status === 201 ){
                     submissions.push({...single, success: true});
                 }
@@ -44,8 +64,6 @@ export async function POST( {request}: APIContext ) {
 }
 
 async function recordExists( record: any) {
-    let response = await db('findOne', collection, {filter:{ pick: record.pick }});
-    let data = await response.json();
-    let document = data.document;
-    return document !== null;
+    const data = await UserPick.exists({ pick: record.pick, event: record.event });
+    return data !== null;
 }

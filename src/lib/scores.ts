@@ -1,20 +1,21 @@
-const ROWS = 'ABCDEFGHIJ'.split('');
-const Qs = [1,2,3,4];
+import type { IFootballEvent } from "@models/events";
 
-export function getWinners( scores, sequences ): Array<string>
+const ROWS = 'ABCDEFGHIJ'.split('');
+const QUARTERS = [1,2,3,4];
+
+export function getWinners( footballEvent:IFootballEvent ): Array<string>
 {
     let winners = [ null, null, null, null ];
-
-    for( let q of Qs )
-    {
-        let score = scores.find( s => s.quarter === q );
-        if( !score ) continue;
-        let afcDigit = score.afc % 10;
-        let nfcDigit = score.nfc % 10;
-
-        let row = ROWS[sequences.afc[`q${q}`].indexOf( afcDigit )];
-        let col = sequences.nfc[`q${q}`].indexOf( nfcDigit );
-
+    for( let q of QUARTERS ){
+        let nfcScore = footballEvent.nfc.scores[q-1];
+        let afcScore = footballEvent.afc.scores[q-1];
+        if( nfcScore === null || afcScore === null ){
+            continue;
+        }
+        let lastNfcDigit = nfcScore !== null ? nfcScore % 10 : null;
+        let lastAfcDigit = afcScore !== null ? afcScore % 10 : null;
+        let row = ROWS[footballEvent.afc.sequences[q-1].indexOf( lastAfcDigit )];
+        let col = footballEvent.nfc.sequences[q-1].indexOf( lastNfcDigit );
         winners[q-1] = `${row}${col}`;
     }
     return winners;

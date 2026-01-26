@@ -1,7 +1,11 @@
+svg {
+    height: auto;
+    width: auto;
+}
 .board-grid {
     display: grid;
     grid-template-columns: 60px repeat(4,2em) repeat(10, 1fr);
-    grid-template-rows: 60px repeat(4,2em) repeat(10, 1fr);
+    grid-template-rows: 50px repeat(4,2em) repeat(10, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     max-width:900px;
