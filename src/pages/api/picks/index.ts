@@ -18,7 +18,11 @@ export async function GET( { request, params, url }: APIContext): Promise<Respon
             return errorResponse(400, JSON.stringify({ "msg": "No event found for season"}) );
         }
     }
-    if( !eventId){
+
+    eventId = eventId ?? await FootballEvent.findOne().sort({date:-1}).then( (ev) => ev?._id.toString() );
+    console.log('eventId', eventId);
+
+    if( !eventId) {
         return errorResponse(400, JSON.stringify({ "msg": "FootballEvent or Season parameter required" }) );
     }
     const data:IUserPick[] = await UserPick.find({event: new Types.ObjectId(eventId)} as any );
@@ -37,6 +41,8 @@ export async function POST( {request}: APIContext ) {
         let submissions = [];
         for( let pick of content.picks){
             let { name, email, event, color } = content;
+            let eventId = event ?? await FootballEvent.findOne().sort({date:-1}).then( (ev) => ev?._id.toString() );
+            console.log('event', event, 'new event', new Types.ObjectId(event));
             let single = { display:name, email, pick, paid:false, submitted: new Date(), event: new Types.ObjectId(event) };
 
             if( !await recordExists( single ) ){

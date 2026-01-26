@@ -8,14 +8,17 @@ import { getWinners } from 'src/lib/scores';
 import { GET as GetPicks } from '@api/picks/index.ts';
 import {type IFootballEvent } from "@models/events";
 import nflteams from 'src/data/nflteams.json';
-
-//https://logotyp.us/logo/nfl/
 import ScoreBoard from "@components/ScoreBoard.astro";
+
+import NFCLogo from '../icons/National_Football_Conference_logo - Copy.svg?raw';
+import AFCLogo from '../icons/American_Football_Conference_logo.svg?raw';
+const icons = import.meta.glob('../icons/nfl_teams/*.svg', { query: '?raw', import: 'default', eager: true });
+
 const footballEvent: IFootballEvent = Astro.props.event;
 Astro.url.searchParams.append('event', footballEvent._id.toString() || '');
 const picks = (await (await GetPicks(Astro)).json()) || [];
 
-const undefinedTeam = {
+const UnidentifiedTeam = {
   id: 'TBD',
   name: 'TBD',
   city: 'TBD',
@@ -27,16 +30,11 @@ const undefinedTeam = {
   }
 }
 
-const afc = nflteams.find( team => team.id === footballEvent.afc.name ) || undefinedTeam;
-const nfc = nflteams.find( team => team.id === footballEvent.nfc.name ) || undefinedTeam;
+const afc = nflteams.find( team => team.id === footballEvent.afc.name ) || UnidentifiedTeam;
+const nfc = nflteams.find( team => team.id === footballEvent.nfc.name ) || UnidentifiedTeam;
 
 const afciconstring = `${afc.city.replaceAll(' ','_')}_${afc.name.replaceAll(' ','_')}`;
 const nfciconstring = `${nfc.city.replaceAll(' ','_')}_${nfc.name.replaceAll(' ','_')}`;
-
-import NFCLogo from '../icons/National_Football_Conference_logo - Copy.svg?raw';
-import AFCLogo from '../icons/American_Football_Conference_logo.svg?raw';
-
-const icons = import.meta.glob('../icons/nfl_teams/*.svg', { query: '?raw', import: 'default', eager: true });
 
 const afcIcon = icons[`../icons/nfl_teams/${afciconstring}_logo.svg`] || AFCLogo;
 const nfcIcon = icons[`../icons/nfl_teams/${nfciconstring}_logo.svg`] || NFCLogo;
@@ -67,14 +65,14 @@ for( let [i,winner] of winners.entries() ){
   }
 }
 ---
-<PurchaseSquaresAddon price={footballEvent.squares.price} />
+<PurchaseSquaresAddon price={footballEvent.squares.price} eventId={footballEvent._id} />
 <div class:list={[
   `max-sm:border-l-[${afc?.colors.primary.background}]`, 
   `max-sm:border-t-[${nfc?.colors.primary.background}]`,
   "board-grid center text-center border border-solid border-gray-500 max-sm:border-l-2 max-sm max-sm:border-t-2 "]}> 
 
   <div id="logo" class="bg-nfl-white border-0">
-    <img class="h-full max-h-full max-w-full justify-center" src="img/nfl-shield.svg">    
+    <img class="h-full max-h-full max-w-full justify-center" src="img/nfl-shield.svg">  
   </div>
 
   <!--Corners -->
@@ -134,5 +132,5 @@ for( let [i,winner] of winners.entries() ){
   </div>
 </div>
 <ScoreBoard event={footballEvent} />
-<PurchaseModal price={footballEvent.squares.price} />
+<PurchaseModal price={footballEvent.squares.price} eventId={footballEvent._id} />
 
