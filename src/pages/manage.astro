@@ -42,10 +42,11 @@ let scores = [];
         <ul class="m-1 mx-auto p-1">
             { picks.map( pick => {
 
-                return <li id={pick.pick} class="border m-1 flex justify-between">
-                    <div class="flex items-start p-1 gap-1">
-                        <div class="border border-black p-1 px-2 bg-gray-300 ">{pick.pick}</div>
-                        <div class="flex flex-col">
+                return <li id={pick.pick} class="border m-1 p-2 flex justify-between">
+
+                    <div class="flex items-start p-1 gap-3 w-full">
+                        <div class="border border-black p-1 px-2 bg-gray-300 self-center rounded">{pick.pick}</div>
+                        <div class="flex flex-col justify-evenly">
                             <div>{pick.display}</div>
                             <div>{pick.email}</div>
                         </div>
